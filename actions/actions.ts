@@ -22,7 +22,7 @@ export async function createNewDocument(){
     .doc(docRef.id)
     .set({
         userId:sessionClaims?.email!,
-        roles:"owner",
+        role:"owner",
         createdAt:new Date(),
         roomId:docRef.id,
     });
