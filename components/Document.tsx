@@ -11,6 +11,7 @@ import useOwner from "@/lib/useOwner"
 import DeleteDocument from "./DeleteDocument"
 import InviteUser from "./InviteUser"
 import ManageUsers from "./ManageUsers"
+import Avatars from "./Avatars"
 
 
 const Document = ({id}:{id:string}) => {
@@ -65,6 +66,7 @@ const Document = ({id}:{id:string}) => {
         {/* ManageUsers */}
             <ManageUsers/>
         {/* Avatars */}
+        <Avatars/>
 
       </div>
 
