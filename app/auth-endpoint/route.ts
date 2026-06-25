@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest){
-    auth.protect(); //Ensure the user is authenticated
+    await auth.protect(); //Ensure the user is authenticated
 
 
     const {sessionClaims}=await auth();
