@@ -107,19 +107,19 @@ const Sidebar = ({
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-slate-900 text-slate-100 border-r border-slate-800">
+    <div className="flex flex-col h-full bg-[#09090b] text-zinc-100 border-r border-zinc-800/40">
       {/* Brand / Logo */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-800 h-16">
+      <div className="flex items-center justify-between p-4 border-b border-zinc-800/40 h-16 bg-[#030303]">
         <Link href="/dashboard" className="flex items-center space-x-2">
           <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-md shadow-indigo-500/20">
             CS
           </div>
-          <span className="font-bold text-lg tracking-wider text-slate-100">ChullSheet</span>
+          <span className="font-bold text-lg tracking-wider text-zinc-100">ChullSheet</span>
         </Link>
         {setIsMobileOpen && (
           <button
             onClick={() => setIsMobileOpen(false)}
-            className="md:hidden text-slate-400 hover:text-white transition-colors"
+            className="md:hidden text-zinc-400 hover:text-white transition-colors cursor-pointer"
           >
             <X size={20} />
           </button>
@@ -127,7 +127,7 @@ const Sidebar = ({
       </div>
 
       {/* Main Navigation */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6 scrollbar-thin scrollbar-thumb-zinc-900 scrollbar-track-transparent">
         {/* Core Nav Section */}
         <div className="space-y-1">
           {navItems.map((item) => {
@@ -140,11 +140,11 @@ const Sidebar = ({
                 onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
                 className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                   active
-                    ? "bg-indigo-600/90 text-white shadow-sm shadow-indigo-600/10"
-                    : "text-slate-400 hover:bg-slate-800/60 hover:text-slate-100"
+                    ? "bg-indigo-600/80 text-white shadow-sm shadow-indigo-600/10"
+                    : "text-zinc-400 hover:bg-zinc-900/60 hover:text-zinc-100"
                 }`}
               >
-                <Icon size={18} className={active ? "text-white" : "text-slate-400"} />
+                <Icon size={18} className={active ? "text-white" : "text-zinc-400"} />
                 <span>{item.name}</span>
               </Link>
             );
@@ -154,7 +154,7 @@ const Sidebar = ({
           <div className="space-y-1">
             <button
               onClick={() => setIsTodoExpanded(!isTodoExpanded)}
-              className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800/60 hover:text-slate-100 transition-all duration-150"
+              className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:bg-zinc-900/60 hover:text-zinc-100 transition-all duration-150 cursor-pointer"
             >
               <div className="flex items-center space-x-3">
                 <CheckSquare size={18} />
@@ -170,8 +170,8 @@ const Sidebar = ({
                   onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
                     pathname === "/todo" && !pathname.includes("teamId")
-                      ? "bg-slate-800 text-white"
-                      : "text-slate-400 hover:bg-slate-800/40 hover:text-slate-200"
+                      ? "bg-zinc-800 text-white"
+                      : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
                   }`}
                 >
                   <User size={14} />
@@ -182,8 +182,8 @@ const Sidebar = ({
                   onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
                     pathname === "/todo" && pathname.includes("teamId")
-                      ? "bg-slate-800 text-white"
-                      : "text-slate-400 hover:bg-slate-800/40 hover:text-slate-200"
+                      ? "bg-zinc-800 text-white"
+                      : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
                   }`}
                 >
                   <Users size={14} />
@@ -194,7 +194,7 @@ const Sidebar = ({
           </div>
         </div>
 
-        <hr className="border-slate-800" />
+        <hr className="border-zinc-800/40" />
 
         {/* Create Document Button Container */}
         <div className="px-1">
@@ -207,7 +207,7 @@ const Sidebar = ({
           <div className="space-y-1">
             <button
               onClick={() => setIsDocsExpanded(!isDocsExpanded)}
-              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider hover:text-slate-300 transition-colors"
+              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-zinc-500 uppercase tracking-wider hover:text-zinc-300 transition-colors cursor-pointer"
             >
               <span>My Documents</span>
               {isDocsExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -216,7 +216,7 @@ const Sidebar = ({
             {isDocsExpanded && (
               <div className="space-y-1 mt-1 pl-1">
                 {groupedData.owner.length === 0 ? (
-                  <p className="text-xs text-slate-500 italic px-2 py-1">No documents found</p>
+                  <p className="text-xs text-zinc-500 italic px-2 py-1">No documents found</p>
                 ) : (
                   groupedData.owner.map((doc) => (
                     <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
@@ -230,7 +230,7 @@ const Sidebar = ({
           <div className="space-y-1">
             <button
               onClick={() => setIsSharedExpanded(!isSharedExpanded)}
-              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider hover:text-slate-300 transition-colors"
+              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-zinc-500 uppercase tracking-wider hover:text-zinc-300 transition-colors cursor-pointer"
             >
               <span>Shared with me</span>
               {isSharedExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -239,7 +239,7 @@ const Sidebar = ({
             {isSharedExpanded && (
               <div className="space-y-1 mt-1 pl-1">
                 {groupedData.editor.length === 0 ? (
-                  <p className="text-xs text-slate-500 italic px-2 py-1">No shared documents</p>
+                  <p className="text-xs text-zinc-500 italic px-2 py-1">No shared documents</p>
                 ) : (
                   groupedData.editor.map((doc) => (
                     <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
@@ -253,13 +253,13 @@ const Sidebar = ({
 
       {/* User profile footer */}
       {user && (
-        <div className="p-4 border-t border-slate-800 bg-slate-950 flex items-center space-x-3 text-sm">
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-slate-700 bg-slate-800">
+        <div className="p-4 border-t border-zinc-800/40 bg-[#030303] flex items-center space-x-3 text-sm">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-zinc-800 bg-zinc-800">
             <Image src={user.imageUrl} alt={user.fullName || "User"} width={32} height={32} className="object-cover w-full h-full" />
           </div>
           <div className="flex-1 truncate">
-            <p className="font-semibold text-slate-200 truncate">{user.fullName}</p>
-            <p className="text-xs text-slate-500 truncate">{user.emailAddresses[0].toString()}</p>
+            <p className="font-semibold text-zinc-200 truncate">{user.fullName}</p>
+            <p className="text-xs text-zinc-500 truncate">{user.emailAddresses[0].toString()}</p>
           </div>
         </div>
       )}
@@ -282,11 +282,11 @@ const Sidebar = ({
         <div className="md:hidden fixed inset-0 z-50 flex">
           {/* Backdrop */}
           <div
-            onClick={() => setIsMobileOpen(false)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsMobileOpen?.(false)}
+            className="fixed inset-0 bg-black/85 backdrop-blur-xs transition-opacity duration-300"
           />
           {/* Menu Drawer */}
-          <div className="relative flex flex-col w-full max-w-[280px] h-full shadow-2xl animate-in slide-in-from-left duration-200">
+          <div className="relative flex flex-col w-full max-w-[280px] h-full shadow-2xl animate-in slide-in-from-left duration-250 backdrop-blur-md">
             {sidebarContent}
           </div>
         </div>

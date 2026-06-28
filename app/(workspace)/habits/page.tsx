@@ -129,9 +129,10 @@ export default function HabitTrackerPage() {
         // Verify if active
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        if (lastDate) {
-          lastDate.setHours(0, 0, 0, 0);
-          const gap = Math.round((today.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+        const lastDateObj = lastDate as Date | null;
+        if (lastDateObj) {
+          lastDateObj.setHours(0, 0, 0, 0);
+          const gap = Math.round((today.getTime() - lastDateObj.getTime()) / (1000 * 60 * 60 * 24));
           if (gap <= 1) {
             maxCurrentStreak = Math.max(maxCurrentStreak, runningStreak);
           }
@@ -164,18 +165,18 @@ export default function HabitTrackerPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-            <Activity className="w-6 h-6 text-indigo-600" />
+          <h1 className="text-2xl font-black text-zinc-100 tracking-tight flex items-center gap-2">
+            <Activity className="w-6 h-6 text-indigo-450 animate-pulse" />
             Habit Consistency Tracker
           </h1>
-          <p className="text-slate-500 text-xs mt-1">
+          <p className="text-zinc-400 text-xs mt-1">
             Build discipline with visual tracking and streaks.
           </p>
         </div>
 
         <button
           onClick={() => setIsAddOpen(true)}
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white shadow-md active:scale-95 transition-all cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white shadow-md shadow-indigo-600/10 active:scale-95 transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Add Habit
         </button>
@@ -183,13 +184,13 @@ export default function HabitTrackerPage() {
 
       {/* Add Habit Overlay Modal */}
       {isAddOpen && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-            <h3 className="text-base font-bold text-slate-100 mb-4">Create New Habit</h3>
+        <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-zinc-950 border border-zinc-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-base font-bold text-zinc-150 mb-4">Create New Habit</h3>
             
             <form onSubmit={handleCreateHabit} className="space-y-4">
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1.5">
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1.5">
                   Habit Name
                 </label>
                 <input
@@ -198,12 +199,12 @@ export default function HabitTrackerPage() {
                   placeholder="e.g. Study 1 Hour, Leetcode..."
                   value={newHabitName}
                   onChange={(e) => setNewHabitName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-850 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-650 focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1.5">
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1.5">
                   Visual Color Theme
                 </label>
                 <div className="grid grid-cols-4 gap-2">
@@ -215,7 +216,7 @@ export default function HabitTrackerPage() {
                       className={`h-8 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all ${
                         newHabitColor === c
                           ? "border-indigo-500 scale-105"
-                          : "border-slate-800 hover:border-slate-700"
+                          : "border-zinc-800 hover:border-zinc-700"
                       }`}
                     >
                       <span className={`w-3.5 h-3.5 rounded-full bg-${c}-500`} />
@@ -228,7 +229,7 @@ export default function HabitTrackerPage() {
                 <button
                   type="button"
                   onClick={() => setIsAddOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-slate-950 border border-slate-850 hover:bg-slate-900 text-xs font-semibold text-slate-400 transition-all cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-[#0c0c0e] border border-zinc-800 hover:bg-zinc-900/60 text-xs font-semibold text-zinc-400 transition-all cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -246,33 +247,33 @@ export default function HabitTrackerPage() {
 
       {/* Stats Cards Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0">
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20 shrink-0">
             <Activity className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Total Tracked</span>
-            <h3 className="text-xl font-bold text-slate-800">{stats.totalHabits} Habits</h3>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Total Tracked</span>
+            <h3 className="text-xl font-bold text-zinc-200">{stats.totalHabits} Habits</h3>
           </div>
         </div>
 
-        <div className="p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 shrink-0">
             <CheckCircle className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Monthly Total</span>
-            <h3 className="text-xl font-bold text-slate-800">{stats.monthlyCompletions} Completed</h3>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Monthly Total</span>
+            <h3 className="text-xl font-bold text-zinc-200">{stats.monthlyCompletions} Completed</h3>
           </div>
         </div>
 
-        <div className="p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20 shrink-0">
             <Flame className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Highest Active Streak</span>
-            <h3 className="text-xl font-bold text-slate-800">{stats.maxCurrentStreak} Days</h3>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Highest Active Streak</span>
+            <h3 className="text-xl font-bold text-zinc-200">{stats.maxCurrentStreak} Days</h3>
           </div>
         </div>
       </div>
@@ -282,20 +283,20 @@ export default function HabitTrackerPage() {
 
       {/* Month Navigation & Main Spreadsheet Grid */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between bg-slate-900 border border-slate-800/80 rounded-lg px-4 py-2">
-          <h2 className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+        <div className="flex items-center justify-between bg-[#09090b] border border-zinc-800/80 rounded-lg px-4 py-2">
+          <h2 className="text-xs font-bold text-zinc-200 uppercase tracking-wider">
             Viewing: {monthYearStr}
           </h2>
           <div className="flex items-center space-x-1.5">
             <button
               onClick={handlePrevMonth}
-              className="p-1 rounded text-slate-400 hover:text-slate-200 hover:bg-slate-950 transition-colors cursor-pointer"
+              className="p-1 rounded text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={handleNextMonth}
-              className="p-1 rounded text-slate-400 hover:text-slate-200 hover:bg-slate-950 transition-colors cursor-pointer"
+              className="p-1 rounded text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

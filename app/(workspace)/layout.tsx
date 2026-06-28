@@ -41,7 +41,7 @@ export default function WorkspaceLayout({
   };
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
+    <div className="flex h-screen bg-background overflow-hidden font-sans">
       {/* Collapsible Sidebar */}
       <Sidebar
         isCollapsed={isCollapsed}
@@ -60,7 +60,7 @@ export default function WorkspaceLayout({
         <Header onMenuClick={handleMenuClick} />
 
         {/* Scrollable Workspace Content */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-slate-50 text-slate-900 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-background text-foreground scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
           <div className="max-w-7xl mx-auto w-full h-full min-h-[calc(100vh-6rem)]">
             {children}
           </div>

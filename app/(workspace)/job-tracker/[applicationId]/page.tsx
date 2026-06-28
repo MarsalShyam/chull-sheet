@@ -197,16 +197,16 @@ export default function ApplicationDetailPage() {
               value={app.position}
               onChange={(e) => handleFieldChange("position", e.target.value)}
               placeholder="e.g. Senior Frontend Engineer"
-              className="text-slate-500 text-sm font-semibold bg-transparent w-full border-0 focus:outline-none focus:ring-0 p-0 hover:bg-slate-100/50 rounded px-1 -ml-1"
+              className="text-zinc-400 text-sm font-semibold bg-transparent w-full border-0 focus:outline-none focus:ring-0 p-0 hover:bg-zinc-900/60 rounded px-1 -ml-1"
             />
           </div>
 
           <div className="flex flex-col items-end shrink-0">
-            <span className="text-[9px] uppercase font-bold text-slate-400 mb-1.5">Job Stage</span>
+            <span className="text-[9px] uppercase font-bold text-zinc-500 mb-1.5">Job Stage</span>
             <select
               value={app.stage}
               onChange={(e) => handleFieldChange("stage", e.target.value as JobStage)}
-              className="bg-slate-100 border border-slate-200/80 rounded px-3 py-1.5 text-xs font-bold text-slate-700 focus:outline-none cursor-pointer"
+              className="bg-[#0c0c0e] border border-zinc-800 rounded px-3 py-1.5 text-xs font-bold text-zinc-300 focus:outline-none cursor-pointer"
             >
               {STAGES.map((s) => (
                 <option key={s} value={s}>
@@ -218,13 +218,13 @@ export default function ApplicationDetailPage() {
         </div>
 
         {/* Info Grid (Company Links, Recruiting Contacts) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-card border border-zinc-800/80 rounded-xl p-5 shadow-md">
           <div className="space-y-4">
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Position Details</h3>
+            <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wider">Position Details</h3>
             
             <div className="space-y-3">
               <div className="flex items-center text-xs">
-                <span className="w-24 text-slate-400 font-semibold flex items-center gap-1.5">
+                <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
                   <ExternalLink className="w-3.5 h-3.5" /> Post Link
                 </span>
                 <input
@@ -233,12 +233,12 @@ export default function ApplicationDetailPage() {
                   value={app.link || ""}
                   onChange={(e) => setApp({ ...app, link: e.target.value })}
                   onBlur={() => handleFieldChange("link", app.link)}
-                  className="flex-1 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none py-0.5 text-indigo-650"
+                  className="flex-1 bg-transparent border-b border-transparent hover:border-zinc-700 focus:border-indigo-500 focus:outline-none py-0.5 text-indigo-400"
                 />
               </div>
 
               <div className="flex items-center text-xs">
-                <span className="w-24 text-slate-400 font-semibold flex items-center gap-1.5">
+                <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5" /> Location
                 </span>
                 <input
@@ -247,12 +247,12 @@ export default function ApplicationDetailPage() {
                   value={app.location || ""}
                   onChange={(e) => setApp({ ...app, location: e.target.value })}
                   onBlur={() => handleFieldChange("location", app.location)}
-                  className="flex-1 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none py-0.5 text-slate-700"
+                  className="flex-1 bg-transparent border-b border-transparent hover:border-zinc-700 focus:border-indigo-500 focus:outline-none py-0.5 text-zinc-200"
                 />
               </div>
 
               <div className="flex items-center text-xs">
-                <span className="w-24 text-slate-400 font-semibold flex items-center gap-1.5">
+                <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
                   <DollarSign className="w-3.5 h-3.5" /> Salary
                 </span>
                 <input
@@ -261,30 +261,30 @@ export default function ApplicationDetailPage() {
                   value={app.salary || ""}
                   onChange={(e) => setApp({ ...app, salary: e.target.value })}
                   onBlur={() => handleFieldChange("salary", app.salary)}
-                  className="flex-1 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none py-0.5 text-slate-700"
+                  className="flex-1 bg-transparent border-b border-transparent hover:border-zinc-700 focus:border-indigo-500 focus:outline-none py-0.5 text-zinc-200"
                 />
               </div>
 
               <div className="flex items-center text-xs">
-                <span className="w-24 text-slate-400 font-semibold flex items-center gap-1.5">
+                <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5" /> Applied
                 </span>
                 <input
                   type="date"
                   value={app.dateApplied || ""}
                   onChange={(e) => handleFieldChange("dateApplied", e.target.value)}
-                  className="flex-1 bg-transparent border-0 focus:outline-none p-0 text-slate-750"
+                  className="flex-1 bg-transparent border-0 focus:outline-none p-0 text-zinc-300"
                 />
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Recruiting Contact</h3>
+            <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wider">Recruiting Contact</h3>
 
             <div className="space-y-3">
               <div className="flex items-center text-xs">
-                <span className="w-24 text-slate-400 font-semibold flex items-center gap-1.5">
+                <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
                   <User className="w-3.5 h-3.5" /> Contact
                 </span>
                 <input
@@ -293,12 +293,12 @@ export default function ApplicationDetailPage() {
                   value={app.recruiterName || ""}
                   onChange={(e) => setApp({ ...app, recruiterName: e.target.value })}
                   onBlur={() => handleFieldChange("recruiterName", app.recruiterName)}
-                  className="flex-1 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none py-0.5 text-slate-700"
+                  className="flex-1 bg-transparent border-b border-transparent hover:border-zinc-700 focus:border-indigo-500 focus:outline-none py-0.5 text-zinc-200"
                 />
               </div>
 
               <div className="flex items-center text-xs">
-                <span className="w-24 text-slate-400 font-semibold flex items-center gap-1.5">
+                <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5" /> Email
                 </span>
                 <input
@@ -307,7 +307,7 @@ export default function ApplicationDetailPage() {
                   value={app.recruiterEmail || ""}
                   onChange={(e) => setApp({ ...app, recruiterEmail: e.target.value })}
                   onBlur={() => handleFieldChange("recruiterEmail", app.recruiterEmail)}
-                  className="flex-1 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none py-0.5 text-slate-700"
+                  className="flex-1 bg-transparent border-b border-transparent hover:border-zinc-700 focus:border-indigo-500 focus:outline-none py-0.5 text-zinc-200"
                 />
               </div>
             </div>
@@ -317,21 +317,21 @@ export default function ApplicationDetailPage() {
 
       {/* Notion-Style interview prep Q&A list */}
       <div className="space-y-4 pt-4">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-          <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-indigo-500" />
+        <div className="flex items-center justify-between border-b border-zinc-800/40 pb-2">
+          <h2 className="text-sm font-bold text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
+            <Sparkles className="w-4 h-4 text-indigo-400" />
             Interview Preparation Guide
           </h2>
           <button
             onClick={handleAddQAItem}
-            className="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-600 hover:text-indigo-500 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" /> Add QA Item
           </button>
         </div>
 
         {app.questions.length === 0 ? (
-          <div className="text-center py-10 bg-slate-50 border border-slate-200/60 border-dashed rounded-xl text-slate-400 text-xs font-semibold">
+          <div className="text-center py-10 bg-[#09090b]/40 border border-zinc-800/60 border-dashed rounded-xl text-zinc-500 text-xs font-semibold">
             No preparation questions added yet. Outline company questions and target answers.
           </div>
         ) : (
@@ -339,35 +339,35 @@ export default function ApplicationDetailPage() {
             {app.questions.map((q, idx) => (
               <div 
                 key={q.id} 
-                className="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm hover:border-slate-350 transition-all relative group"
+                className="bg-card border border-zinc-800/80 rounded-xl p-4 shadow-md hover:border-zinc-700 transition-all relative group"
               >
                 <button
                   onClick={() => handleRemoveQAItem(q.id)}
-                  className="absolute top-4 right-4 text-slate-400 hover:text-rose-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                  className="absolute top-4 right-4 text-zinc-500 hover:text-rose-455 p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
 
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
-                    <span className="text-[10px] font-extrabold text-indigo-500 mt-1 uppercase select-none">Q:</span>
+                    <span className="text-[10px] font-extrabold text-indigo-455 mt-1 uppercase select-none">Q:</span>
                     <input
                       type="text"
                       placeholder="e.g. Why do you want to join Vercel?"
                       value={q.question}
                       onChange={(e) => handleQAChange(idx, "question", e.target.value)}
                       onBlur={handleQABlur}
-                      className="w-full text-xs font-bold text-slate-800 bg-transparent border-0 focus:outline-none p-0 focus:ring-0"
+                      className="w-full text-xs font-bold text-zinc-200 bg-transparent border-0 focus:outline-none p-0 focus:ring-0"
                     />
                   </div>
-                  <div className="flex items-start gap-2 pt-1 border-t border-slate-100">
-                    <span className="text-[10px] font-extrabold text-indigo-500 mt-1 uppercase select-none">A:</span>
+                  <div className="flex items-start gap-2 pt-1 border-t border-zinc-800/40">
+                    <span className="text-[10px] font-extrabold text-indigo-455 mt-1 uppercase select-none">A:</span>
                     <textarea
                       placeholder="Type your structured target answer..."
                       value={q.answer}
                       onChange={(e) => handleQAChange(idx, "answer", e.target.value)}
                       onBlur={handleQABlur}
-                      className="w-full text-xs text-slate-655 bg-transparent border-0 focus:outline-none p-0 focus:ring-0 min-h-[50px] resize-y"
+                      className="w-full text-xs text-zinc-300 bg-transparent border-0 focus:outline-none p-0 focus:ring-0 min-h-[50px] resize-y"
                     />
                   </div>
                 </div>

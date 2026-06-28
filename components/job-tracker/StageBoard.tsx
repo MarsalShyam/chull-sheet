@@ -54,12 +54,12 @@ export default function StageBoard({ applications, onMoveStage }: StageBoardProp
 
   // Color mappings for stages headers
   const stageHeaderColors: Record<JobStage, string> = {
-    "To Apply": "bg-slate-100 text-slate-700 border-slate-300/80 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800",
-    "Applied": "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/30",
-    "Interview Call": "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/20 dark:text-indigo-400 dark:border-indigo-900/30",
-    "No Answer": "bg-amber-50 text-amber-750 border-amber-250 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/30",
-    "Offer": "bg-emerald-50 text-emerald-700 border-emerald-250 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/30",
-    "Rejected": "bg-rose-50 text-rose-700 border-rose-250 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900/30",
+    "To Apply": "bg-zinc-900/80 text-zinc-300 border-zinc-850",
+    "Applied": "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    "Interview Call": "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+    "No Answer": "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    "Offer": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    "Rejected": "bg-rose-500/10 text-rose-400 border-rose-500/20",
   };
 
   return (
@@ -71,12 +71,12 @@ export default function StageBoard({ applications, onMoveStage }: StageBoardProp
             key={stage}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, stage)}
-            className="flex flex-col bg-slate-100/50 border border-slate-200/60 rounded-xl p-3 min-h-[450px] shrink-0"
+            className="flex flex-col bg-[#0c0c0e]/30 border border-zinc-800/80 rounded-xl p-3 min-h-[450px] shrink-0"
           >
             {/* Header Column */}
             <div className={`flex items-center justify-between border px-2.5 py-1.5 rounded-lg text-xs font-bold mb-3 shadow-sm ${stageHeaderColors[stage]}`}>
               <span className="truncate">{stage}</span>
-              <span className="bg-white/90 dark:bg-slate-950/50 px-2 py-0.5 rounded text-[10px]">
+              <span className="bg-zinc-900/60 border border-zinc-850 px-2 py-0.5 rounded text-[10px] text-zinc-300">
                 {stageApps.length}
               </span>
             </div>
@@ -84,7 +84,7 @@ export default function StageBoard({ applications, onMoveStage }: StageBoardProp
             {/* Application Cards */}
             <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[500px]">
               {stageApps.length === 0 ? (
-                <div className="h-full border border-dashed border-slate-200/80 rounded-lg flex items-center justify-center p-6 text-slate-400 text-[10px] text-center">
+                <div className="h-full border border-dashed border-zinc-800/80 rounded-lg flex items-center justify-center p-6 text-zinc-550 text-[10px] text-center">
                   Drag here
                 </div>
               ) : (
@@ -93,19 +93,19 @@ export default function StageBoard({ applications, onMoveStage }: StageBoardProp
                     key={app.id}
                     draggable
                     onDragStart={(e) => handleDragStart(e, app.id)}
-                    className="group bg-white border border-slate-200 hover:border-indigo-400 p-3 rounded-lg shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing transition-all duration-200 relative overflow-hidden"
+                    className="group bg-card border border-zinc-800/80 hover:border-indigo-500/50 p-3 rounded-lg shadow-md hover:shadow-lg cursor-grab active:cursor-grabbing transition-all duration-200 relative overflow-hidden"
                   >
                     {/* Left color bar */}
                     <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${
                       stage === "Offer" ? "bg-emerald-500" :
                       stage === "Rejected" ? "bg-rose-500" :
                       stage === "Interview Call" ? "bg-indigo-500" :
-                      "bg-slate-300"
+                      "bg-zinc-700"
                     }`} />
 
                     <div className="pl-1">
                       <div className="flex justify-between items-start mb-1.5">
-                        <h4 className="font-bold text-xs text-slate-800 group-hover:text-indigo-600 truncate mr-2">
+                        <h4 className="font-bold text-xs text-zinc-200 group-hover:text-indigo-400 truncate mr-2">
                           {app.companyName}
                         </h4>
                         {app.link && (
@@ -113,43 +113,43 @@ export default function StageBoard({ applications, onMoveStage }: StageBoardProp
                             href={app.link}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-slate-400 hover:text-slate-600 shrink-0 cursor-pointer"
+                            className="text-zinc-500 hover:text-zinc-400 shrink-0 cursor-pointer"
                           >
                             <ExternalLink className="w-3 h-3" />
                           </a>
                         )}
                       </div>
 
-                      <p className="text-[10px] text-slate-500 font-semibold mb-3 truncate">
+                      <p className="text-[10px] text-zinc-400 font-semibold mb-3 truncate">
                         {app.position}
                       </p>
 
-                      <div className="space-y-1 text-[9px] text-slate-400">
+                      <div className="space-y-1 text-[9px] text-zinc-500">
                         {app.location && (
                           <div className="flex items-center gap-1.5">
-                            <MapPin className="w-3 h-3 shrink-0 text-slate-300" />
+                            <MapPin className="w-3 h-3 shrink-0 text-zinc-650" />
                             <span className="truncate">{app.location}</span>
                           </div>
                         )}
                         {app.salary && (
                           <div className="flex items-center gap-1.5">
-                            <DollarSign className="w-3 h-3 shrink-0 text-slate-300" />
+                            <DollarSign className="w-3 h-3 shrink-0 text-zinc-650" />
                             <span>{app.salary}</span>
                           </div>
                         )}
                         {app.dateApplied && (
                           <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3 h-3 shrink-0 text-slate-300" />
+                            <Calendar className="w-3 h-3 shrink-0 text-zinc-650" />
                             <span>Applied: {app.dateApplied}</span>
                           </div>
                         )}
                       </div>
 
                       {/* Detail route navigation link */}
-                      <div className="mt-3 pt-2.5 border-t border-slate-100 flex justify-end">
+                      <div className="mt-3 pt-2.5 border-t border-zinc-800/40 flex justify-end">
                         <Link
                           href={`/job-tracker/${app.id}`}
-                          className="inline-flex items-center gap-1 text-[9px] font-bold text-indigo-600 hover:text-indigo-500 transition-colors"
+                          className="inline-flex items-center gap-1 text-[9px] font-bold text-indigo-400 hover:text-indigo-300 transition-colors"
                         >
                           Prep Notes <ArrowRight className="w-3 h-3" />
                         </Link>

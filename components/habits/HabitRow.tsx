@@ -86,9 +86,10 @@ export default function HabitRow({
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    if (lastDate) {
-      lastDate.setHours(0, 0, 0, 0);
-      const diffTimeToday = today.getTime() - lastDate.getTime();
+    const lastDateObj = lastDate as Date | null;
+    if (lastDateObj) {
+      lastDateObj.setHours(0, 0, 0, 0);
+      const diffTimeToday = today.getTime() - lastDateObj.getTime();
       const diffDaysToday = Math.round(diffTimeToday / (1000 * 60 * 60 * 24));
 
       if (diffDaysToday <= 1) {

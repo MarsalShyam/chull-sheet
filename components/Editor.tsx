@@ -26,7 +26,7 @@ function BlockNote({doc,provider,darkMode}:EditorProps){
 
     const editor:BlockNoteEditor=useCreateBlockNote({
         collaboration:{
-            provider,
+            provider: provider as any,
             fragment:doc.getXmlFragment("document-store"),  //important-> used for store the doc
             user:{
                 name:userInfo?.name,
@@ -51,7 +51,7 @@ const Editor = () => {
     const room=useRoom();//for getting the room information
     const [doc,setDoc]=useState<Y.Doc>();
     const [provider,setProvider]=useState<LiveblocksYjsProvider>();
-    const [darkMode,setDarkMode]=useState(false);
+    const [darkMode,setDarkMode]=useState(true);
 
     useEffect(()=>{
         const yDoc=new Y.Doc();
@@ -71,10 +71,10 @@ const Editor = () => {
         return null;
     }
 
-    const style=`hover:text-white ${
+    const style=`hover:text-white transition-colors cursor-pointer border border-zinc-800/80 ${
         darkMode
-        ?"text-gray-300 bg-gray-700 hover:bg-gray-100 hover:text-gray-700"
-        :"text-gray-700 bg-gray-200 hover:bg-gray-300 hover:text-gray-700"
+        ?"text-zinc-300 bg-zinc-900/60 hover:bg-zinc-800 hover:text-white"
+        :"text-zinc-700 bg-zinc-200 hover:bg-zinc-300 hover:text-zinc-800"
     }`
 
   return (

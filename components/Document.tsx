@@ -41,7 +41,7 @@ const Document = ({id}:{id:string}) => {
         }
     }
   return (
-    <div className="flex-1 h-full bg-white p-5">
+    <div className="flex-1 h-full bg-background text-foreground p-5">
       <div className="flex max-w-6xl mx-auto justify-between pb-5">
         <form className="flex flex-1 space-x-2" onSubmit={updateTitle}>
             {/* updata title... */}
@@ -72,7 +72,7 @@ const Document = ({id}:{id:string}) => {
 
       </div>
 
-        <hr className="pb-10"/>
+        <hr className="border-zinc-800/40 pb-10"/>
       {/* Collaborative Editor */}
       <Editor/>
     </div>

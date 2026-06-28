@@ -334,13 +334,11 @@ export default function JobTrackerPage() {
                     + Add QA Item
                   </button>
                 </div>
-              </div>
-
-              <div className="flex justify-end gap-2.5 pt-4 border-t border-slate-850">
+              </div>              <div className="flex justify-end gap-2.5 pt-4 border-t border-zinc-800/60">
                 <button
                   type="button"
                   onClick={() => setIsAddOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-slate-950 border border-slate-855 hover:bg-slate-900 text-xs font-semibold text-slate-400 cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-[#0c0c0e] border border-zinc-800 hover:bg-zinc-900/60 text-xs font-semibold text-zinc-400 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -358,48 +356,48 @@ export default function JobTrackerPage() {
 
       {/* Metrics Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0">
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20 shrink-0">
             <TrendingUp className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active pipelines</span>
-            <h3 className="text-xl font-bold text-slate-800">{metrics.total} Jobs</h3>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Active pipelines</span>
+            <h3 className="text-xl font-bold text-zinc-200">{metrics.total} Jobs</h3>
           </div>
         </div>
 
-        <div className="p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0">
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20 shrink-0">
             <CalendarRange className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Interviews Scheduled</span>
-            <h3 className="text-xl font-bold text-slate-800">{metrics.interviews} Active</h3>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Interviews Scheduled</span>
+            <h3 className="text-xl font-bold text-zinc-200">{metrics.interviews} Active</h3>
           </div>
         </div>
 
-        <div className="p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 shrink-0">
             <Award className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Offers Received</span>
-            <h3 className="text-xl font-bold text-slate-800">{metrics.offers} Secured</h3>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Offers Received</span>
+            <h3 className="text-xl font-bold text-zinc-200">{metrics.offers} Secured</h3>
           </div>
         </div>
       </div>
 
       {/* View Toggles & Content Container */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div className="flex items-center justify-between border-b border-zinc-800/40 pb-3">
           {/* Toggles */}
-          <div className="flex bg-slate-100 border border-slate-200/60 p-1 rounded-lg">
+          <div className="flex bg-zinc-900/65 border border-zinc-800/80 p-1 rounded-lg">
             <button
               onClick={() => setActiveTab("board")}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold cursor-pointer transition-all ${
                 activeTab === "board"
-                  ? "bg-white text-indigo-600 shadow-sm"
-                  : "text-slate-500 hover:text-slate-800"
+                  ? "bg-zinc-850 text-zinc-100 shadow-md border border-zinc-750/30"
+                  : "text-zinc-400 hover:text-zinc-250 hover:bg-zinc-900/30"
               }`}
             >
               <Kanban className="w-3.5 h-3.5" /> Stage Board
@@ -408,15 +406,15 @@ export default function JobTrackerPage() {
               onClick={() => setActiveTab("list")}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold cursor-pointer transition-all ${
                 activeTab === "list"
-                  ? "bg-white text-indigo-600 shadow-sm"
-                  : "text-slate-500 hover:text-slate-800"
+                  ? "bg-zinc-850 text-zinc-100 shadow-md border border-zinc-750/30"
+                  : "text-zinc-400 hover:text-zinc-250 hover:bg-zinc-900/30"
               }`}
             >
               <List className="w-3.5 h-3.5" /> All Applications
             </button>
           </div>
-          <div className="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
-            <CircleDot className="w-3 h-3 text-indigo-500 animate-pulse" /> Live Synchronization
+          <div className="text-[10px] text-zinc-500 font-semibold flex items-center gap-1">
+            <CircleDot className="w-3 h-3 text-indigo-400 animate-pulse" /> Live Synchronization
           </div>
         </div>
 

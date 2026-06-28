@@ -20,7 +20,7 @@ let app:App;
 
 if(getApps().length===0){
     app=initializeApp({
-        credential: cert(serviceKey)
+        credential: cert(serviceKey as any)
     })
 }else{
     app=getApp()

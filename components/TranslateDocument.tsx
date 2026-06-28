@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { BotIcon, LanguagesIcon } from "lucide-react";
 import Markdown from "react-markdown";
+import { toast } from "sonner";
 
 type Language =
   | "english"

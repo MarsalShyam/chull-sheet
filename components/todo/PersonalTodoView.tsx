@@ -90,19 +90,19 @@ export default function PersonalTodoView({
   };
 
   const getPriorityColor = (p: TodoPriority) => {
-    if (p === "High") return "bg-rose-500/10 text-rose-500 border-rose-500/20";
-    if (p === "Medium") return "bg-amber-500/10 text-amber-500 border-amber-500/20";
-    return "bg-blue-500/10 text-blue-500 border-blue-500/20";
+    if (p === "High") return "bg-rose-500/10 text-rose-400 border-rose-500/20";
+    if (p === "Medium") return "bg-amber-500/10 text-amber-400 border-amber-500/20";
+    return "bg-blue-500/10 text-blue-400 border-blue-500/20";
   };
 
   return (
     <div className="space-y-6">
       {/* Sub Header */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-        <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Personal Tasks</h2>
+      <div className="flex items-center justify-between border-b border-zinc-800/40 pb-3">
+        <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Personal Tasks</h2>
         <button
           onClick={() => setIsFormOpen(!isFormOpen)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white shadow-sm active:scale-95 transition-all cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white shadow-md shadow-indigo-600/10 active:scale-95 transition-all cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" /> New Task
         </button>
@@ -110,7 +110,7 @@ export default function PersonalTodoView({
 
       {/* Add Form */}
       {isFormOpen && (
-        <form onSubmit={handleSubmit} className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4 max-w-xl animate-in slide-in-from-top-4 duration-200">
+        <form onSubmit={handleSubmit} className="bg-card border border-zinc-800 rounded-xl p-5 shadow-md space-y-4 max-w-xl animate-in slide-in-from-top-4 duration-200">
           <div className="space-y-3">
             <input
               type="text"
@@ -118,23 +118,23 @@ export default function PersonalTodoView({
               placeholder="What needs to be done?"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-indigo-500"
+              className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3.5 py-2.5 text-xs text-zinc-105 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
             />
             <textarea
               placeholder="Add description..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 h-20 resize-none"
+              className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3.5 py-2.5 text-xs text-zinc-105 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 h-20 resize-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-[9px] uppercase font-bold text-slate-500 mb-1">Priority</label>
+              <label className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Priority</label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as TodoPriority)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-655 focus:outline-none cursor-pointer"
+                className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-300 focus:outline-none cursor-pointer"
               >
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
@@ -142,29 +142,29 @@ export default function PersonalTodoView({
               </select>
             </div>
             <div>
-              <label className="block text-[9px] uppercase font-bold text-slate-500 mb-1">Due Date</label>
+              <label className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Due Date</label>
               <input
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none"
+                className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-300 focus:outline-none"
               />
             </div>
           </div>
 
           {/* Checklist Items form section */}
-          <div className="space-y-2 pt-2 border-t border-slate-100">
-            <label className="block text-[9px] uppercase font-bold text-slate-500">Checklist Items</label>
+          <div className="space-y-2 pt-2 border-t border-zinc-800/40">
+            <label className="block text-[9px] uppercase font-bold text-zinc-500">Checklist Subtasks</label>
             
             {checklist.length > 0 && (
-              <div className="space-y-1.5 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+              <div className="space-y-1.5 bg-[#0c0c0e]/50 p-2.5 rounded-lg border border-zinc-800/80">
                 {checklist.map((item) => (
                   <div key={item.id} className="flex justify-between items-center text-xs">
-                    <span className="text-slate-700">{item.title}</span>
+                    <span className="text-zinc-300">{item.title}</span>
                     <button
                       type="button"
                       onClick={() => handleRemoveCheckItem(item.id)}
-                      className="text-rose-500 hover:text-rose-600 cursor-pointer"
+                      className="text-rose-500 hover:text-rose-450 cursor-pointer"
                     >
                       ✕
                     </button>
@@ -179,12 +179,12 @@ export default function PersonalTodoView({
                 placeholder="Add checklist subtask..."
                 value={newCheckItem}
                 onChange={(e) => setNewCheckItem(e.target.value)}
-                className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-750 placeholder:text-slate-400 focus:outline-none"
+                className="flex-1 bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-150 placeholder:text-zinc-500 focus:outline-none"
               />
               <button
                 type="button"
                 onClick={handleAddCheckItem}
-                className="px-3 py-1 rounded bg-slate-900 hover:bg-slate-800 text-[10px] text-white font-bold cursor-pointer"
+                className="px-3 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-[10px] text-zinc-200 border border-zinc-700/50 font-bold cursor-pointer"
               >
                 Add
               </button>
@@ -195,7 +195,7 @@ export default function PersonalTodoView({
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-550 cursor-pointer"
+              className="px-3.5 py-2 rounded-lg bg-[#0c0c0e] border border-zinc-800 text-xs font-semibold text-zinc-400 hover:bg-zinc-900/60 cursor-pointer"
             >
               Cancel
             </button>
@@ -212,7 +212,7 @@ export default function PersonalTodoView({
       {/* Task List Grid */}
       <div className="space-y-2.5">
         {todos.length === 0 ? (
-          <div className="text-center py-12 bg-slate-50 border border-slate-200/60 rounded-xl text-slate-400 text-xs font-medium">
+          <div className="text-center py-12 bg-[#09090b]/40 border border-zinc-800/60 rounded-xl text-zinc-500 text-xs font-medium">
             You don&apos;t have any personal tasks. Click &quot;New Task&quot; to build your list.
           </div>
         ) : (
@@ -224,7 +224,7 @@ export default function PersonalTodoView({
             return (
               <div 
                 key={todo.id}
-                className={`bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:border-slate-350 transition-all ${
+                className={`bg-card border border-zinc-800/80 rounded-xl overflow-hidden shadow-md hover:border-zinc-700 hover:bg-zinc-900/10 transition-all ${
                   todo.completed ? "opacity-75" : ""
                 }`}
               >
@@ -236,21 +236,21 @@ export default function PersonalTodoView({
                         e.stopPropagation();
                         handleToggleCompleted(todo);
                       }}
-                      className="text-slate-400 hover:text-indigo-600 cursor-pointer shrink-0"
+                      className="text-zinc-500 hover:text-indigo-400 cursor-pointer shrink-0"
                     >
                       {todo.completed ? (
-                        <CheckSquare className="w-5 h-5 text-indigo-600" />
+                        <CheckSquare className="w-5 h-5 text-indigo-455" />
                       ) : (
                         <Square className="w-5 h-5" />
                       )}
                     </button>
                     
                     <div className="min-w-0 flex-1">
-                      <h4 className={`text-xs font-bold text-slate-800 truncate ${todo.completed ? "line-through text-slate-450" : ""}`}>
+                      <h4 className={`text-xs font-bold text-zinc-200 truncate ${todo.completed ? "line-through text-zinc-500" : ""}`}>
                         {todo.title}
                       </h4>
                       {todo.description && (
-                        <p className="text-[10px] text-slate-450 truncate mt-0.5">{todo.description}</p>
+                        <p className="text-[10px] text-zinc-500 truncate mt-0.5">{todo.description}</p>
                       )}
                     </div>
                   </div>
@@ -263,13 +263,13 @@ export default function PersonalTodoView({
 
                     {/* Progress Checklist Badge */}
                     {totalItems > 0 && (
-                      <span className="text-[9px] font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">
+                      <span className="text-[9px] font-semibold text-zinc-400 bg-zinc-900/60 border border-zinc-800 px-2 py-0.5 rounded-full">
                         {completedItems}/{totalItems}
                       </span>
                     )}
 
                     {/* Expand Trigger */}
-                    <button className="text-slate-400">
+                    <button className="text-zinc-500">
                       {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
                   </div>
@@ -277,21 +277,21 @@ export default function PersonalTodoView({
 
                 {/* Expanded Details Body */}
                 {isExpanded && (
-                  <div className="px-11 pb-4 pt-1 border-t border-slate-100 bg-slate-50/50 space-y-4">
+                  <div className="px-11 pb-4 pt-1 border-t border-zinc-800/60 bg-[#0c0c0e]/30 space-y-4">
                     {/* Checklist renderer */}
                     {totalItems > 0 && (
                       <div className="space-y-2">
-                        <span className="block text-[9px] uppercase font-bold text-slate-400">Subtask Progress</span>
+                        <span className="block text-[9px] uppercase font-bold text-zinc-500">Subtask Progress</span>
                         <div className="space-y-2">
                           {todo.checklist.map((item) => (
-                            <label key={item.id} className="flex items-center space-x-2 text-xs text-slate-700 cursor-pointer">
+                            <label key={item.id} className="flex items-center space-x-2 text-xs text-zinc-300 cursor-pointer">
                               <input
                                 type="checkbox"
                                 checked={item.completed}
                                 onChange={() => handleToggleChecklist(todo, item.id)}
                                 className="rounded text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5 cursor-pointer"
                               />
-                              <span className={item.completed ? "line-through text-slate-400" : ""}>{item.title}</span>
+                              <span className={item.completed ? "line-through text-zinc-500" : ""}>{item.title}</span>
                             </label>
                           ))}
                         </div>
@@ -299,18 +299,18 @@ export default function PersonalTodoView({
                     )}
 
                     {/* Metadata summary */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 text-[10px] text-slate-400 pt-2 border-t border-slate-100/80">
+                    <div className="flex flex-wrap items-center justify-between gap-3 text-[10px] text-zinc-500 pt-2 border-t border-zinc-800/60">
                       <div className="flex items-center gap-3">
                         {todo.dueDate && (
-                          <span className="flex items-center gap-1 font-semibold text-slate-500">
-                            <Calendar className="w-3.5 h-3.5 text-slate-350" /> Due: {todo.dueDate}
+                          <span className="flex items-center gap-1 font-semibold text-zinc-400">
+                            <Calendar className="w-3.5 h-3.5 text-zinc-500" /> Due: {todo.dueDate}
                           </span>
                         )}
                       </div>
                       
                       <button
                         onClick={() => onDeleteTodo(todo.id)}
-                        className="inline-flex items-center gap-1 text-rose-500 hover:text-rose-600 font-bold cursor-pointer"
+                        className="inline-flex items-center gap-1 text-rose-500 hover:text-rose-400 font-bold cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" /> Delete Task
                       </button>

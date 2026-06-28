@@ -264,19 +264,19 @@ export default function TeamTodoView({
   };
 
   const columnHeadersColors: Record<TeamTodoStatus, string> = {
-    "Todo": "bg-slate-100 text-slate-700 border-slate-300/80 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800",
-    "In Progress": "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/30",
-    "Review": "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-900/30",
-    "Completed": "bg-emerald-50 text-emerald-700 border-emerald-250 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/30",
+    "Todo": "bg-zinc-900/80 text-zinc-300 border-zinc-850",
+    "In Progress": "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    "Review": "bg-purple-500/10 text-purple-400 border-purple-500/20",
+    "Completed": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   };
 
   return (
     <div className="space-y-6">
       {/* Team navigation tabs row */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800/40 pb-3">
         <div className="flex flex-wrap items-center gap-1.5">
           {teams.length === 0 ? (
-            <span className="text-xs text-slate-400 font-medium">No teams created.</span>
+            <span className="text-xs text-zinc-500 font-medium">No teams created.</span>
           ) : (
             teams.map((t) => (
               <button
@@ -284,8 +284,8 @@ export default function TeamTodoView({
                 onClick={() => setSelectedTeamId(t.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
                   selectedTeamId === t.id
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "bg-slate-50 border border-slate-250/80 text-slate-500 hover:text-slate-700 hover:bg-slate-100"
+                    ? "bg-zinc-800 text-zinc-100 shadow-sm border border-zinc-700/50"
+                    : "bg-[#0c0c0e] border border-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60"
                 }`}
               >
                 {t.name}
@@ -294,7 +294,7 @@ export default function TeamTodoView({
           )}
           <button
             onClick={() => setIsNewTeamOpen(true)}
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-dashed border-indigo-400 text-xs font-semibold text-indigo-600 hover:bg-indigo-50/50 cursor-pointer"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-dashed border-indigo-500/50 text-xs font-semibold text-indigo-400 hover:bg-indigo-500/10 cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" /> Create Team
           </button>
@@ -302,10 +302,10 @@ export default function TeamTodoView({
 
         {activeTeam && (
           <div className="flex items-center space-x-2">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Members: {activeTeam.members.length}</span>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Members: {activeTeam.members.length}</span>
             <button
               onClick={() => setIsInviteOpen(true)}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-900 hover:bg-slate-800 text-[10px] text-white font-bold cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-[10px] text-zinc-200 border border-zinc-750 font-bold cursor-pointer"
             >
               <UserPlus className="w-3 h-3" /> Invite
             </button>
@@ -315,7 +315,7 @@ export default function TeamTodoView({
 
       {/* Main Kanban Workspace */}
       {!selectedTeamId ? (
-        <div className="text-center py-16 bg-slate-50 border border-slate-200/60 border-dashed rounded-xl text-slate-400 text-xs font-medium">
+        <div className="text-center py-16 bg-[#09090b]/40 border border-zinc-800/60 border-dashed rounded-xl text-zinc-500 text-xs font-medium">
           Select or create a Team from the tab bar above to load your team task boards.
         </div>
       ) : (
@@ -323,8 +323,8 @@ export default function TeamTodoView({
           {/* Active Board Actions */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Users2 className="w-4 h-4 text-indigo-600" />
-              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+              <Users2 className="w-4 h-4 text-indigo-400" />
+              <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wider">
                 {activeTeam?.name} Board
               </h3>
             </div>
@@ -345,18 +345,18 @@ export default function TeamTodoView({
                   key={column}
                   onDragOver={handleDragOver}
                   onDrop={(e) => handleDrop(e, column)}
-                  className="flex flex-col bg-slate-100/50 border border-slate-200/60 rounded-xl p-3 min-h-[400px] shrink-0"
+                  className="flex flex-col bg-[#0c0c0e]/30 border border-zinc-800/80 rounded-xl p-3 min-h-[400px] shrink-0"
                 >
                   {/* Column Header */}
                   <div className={`flex items-center justify-between border px-2.5 py-1.5 rounded-lg text-xs font-bold mb-3 shadow-sm ${columnHeadersColors[column]}`}>
                     <span>{column}</span>
-                    <span className="bg-white/90 dark:bg-slate-950/50 px-2 py-0.5 rounded text-[10px]">{tasks.length}</span>
+                    <span className="bg-zinc-900/60 border border-zinc-850 px-2 py-0.5 rounded text-[10px] text-zinc-300">{tasks.length}</span>
                   </div>
 
                   {/* Task Cards */}
                   <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[450px]">
                     {tasks.length === 0 ? (
-                      <div className="h-full border border-dashed border-slate-200/80 rounded-lg flex items-center justify-center p-6 text-slate-400 text-[10px] text-center">
+                      <div className="h-full border border-dashed border-zinc-800/80 rounded-lg flex items-center justify-center p-6 text-zinc-550 text-[10px] text-center">
                         Drag here
                       </div>
                     ) : (
@@ -366,15 +366,15 @@ export default function TeamTodoView({
                           draggable
                           onDragStart={(e) => handleDragStart(e, task.id)}
                           onClick={() => setSelectedTask(task)}
-                          className="bg-white border border-slate-200 hover:border-indigo-400 p-3 rounded-lg shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 relative overflow-hidden"
+                          className="bg-card border border-zinc-800/80 hover:border-indigo-500/50 p-3 rounded-lg shadow-md hover:shadow-lg cursor-pointer transition-all duration-200 relative overflow-hidden"
                         >
-                          <h4 className="font-bold text-xs text-slate-800 truncate mb-1">
+                          <h4 className="font-bold text-xs text-zinc-250 truncate mb-1">
                             {task.title}
                           </h4>
                           {task.description && (
-                            <p className="text-[10px] text-slate-450 truncate mb-3">{task.description}</p>
+                            <p className="text-[10px] text-zinc-500 truncate mb-3">{task.description}</p>
                           )}
-                          <div className="flex items-center justify-between text-[9px] text-slate-400">
+                          <div className="flex items-center justify-between text-[9px] text-zinc-500">
                             <span className={`px-2 py-0.5 rounded-full border ${getPriorityColor(task.priority)}`}>
                               {task.priority}
                             </span>
@@ -396,38 +396,38 @@ export default function TeamTodoView({
       )}
 
       {/* Modal Dialogs */}
-      
-      {/* 1. Create New Team Overlay */}
+      {/* Overlays / Modals */}
+      {/* 1. New Team Overlay */}
       {isNewTeamOpen && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-            <h3 className="text-base font-bold text-slate-100 mb-3">Create Collaborative Team</h3>
+        <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-zinc-950 border border-zinc-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-base font-bold text-zinc-150 mb-3">Create New Team</h3>
             <form onSubmit={handleCreateTeamSubmit} className="space-y-4">
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">Team Name</label>
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">Team Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Study Group, Launch Team"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-850 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">Description</label>
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">Description</label>
                 <textarea
                   placeholder="What is this team working on?"
                   value={teamDesc}
                   onChange={(e) => setTeamDesc(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 h-16 resize-none"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 h-16 resize-none"
                 />
               </div>
               <div className="flex justify-end gap-2.5">
                 <button
                   type="button"
                   onClick={() => setIsNewTeamOpen(false)}
-                  className="px-3.5 py-2 rounded-lg bg-slate-950 border border-slate-855 text-xs font-semibold text-slate-400 cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-[#0c0c0e] border border-zinc-800 text-xs font-semibold text-zinc-400 hover:bg-zinc-900/60 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -445,27 +445,27 @@ export default function TeamTodoView({
 
       {/* 2. Invite Member Overlay */}
       {isInviteOpen && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-            <h3 className="text-base font-bold text-slate-100 mb-3">Invite Team Member</h3>
+        <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-zinc-955 border border-zinc-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-base font-bold text-zinc-150 mb-3">Invite Team Member</h3>
             <form onSubmit={handleInviteSubmit} className="space-y-4">
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">Member Email</label>
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">Member Email</label>
                 <input
                   type="email"
                   required
                   placeholder="collaborator@domain.com"
                   value={inviteEmail}
                   onChange={(e) => setInviteEmail(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">Role Permissions</label>
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">Role Permissions</label>
                 <select
                   value={inviteRole}
                   onChange={(e) => setInviteRole(e.target.value as TeamMemberRole)}
-                  className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none cursor-pointer"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none cursor-pointer"
                 >
                   <option value="Member">Member (Read & Edit Tasks)</option>
                   <option value="Admin">Admin (Manage Members & Settings)</option>
@@ -475,7 +475,7 @@ export default function TeamTodoView({
                 <button
                   type="button"
                   onClick={() => setIsInviteOpen(false)}
-                  className="px-3.5 py-2 rounded-lg bg-slate-950 border border-slate-855 text-xs font-semibold text-slate-400 cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-[#0c0c0e] border border-zinc-800 text-xs font-semibold text-zinc-400 hover:bg-zinc-900/60 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -493,37 +493,37 @@ export default function TeamTodoView({
 
       {/* 3. Add Team Task Overlay */}
       {isNewTaskOpen && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-            <h3 className="text-base font-bold text-slate-100 mb-3">Add Team Task</h3>
+        <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-zinc-950 border border-zinc-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-base font-bold text-zinc-150 mb-3">Add Team Task</h3>
             <form onSubmit={handleCreateTaskSubmit} className="space-y-4">
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">Task Title</label>
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">Task Title</label>
                 <input
                   type="text"
                   required
                   placeholder="Task title..."
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">Description</label>
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">Description</label>
                 <textarea
                   placeholder="Add detailed scope..."
                   value={taskDesc}
                   onChange={(e) => setTaskDesc(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 h-16 resize-none"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 h-16 resize-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[9px] uppercase font-bold text-slate-500 mb-1">Priority</label>
+                  <label className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Priority</label>
                   <select
                     value={taskPriority}
                     onChange={(e) => setTaskPriority(e.target.value as TodoPriority)}
-                    className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none cursor-pointer"
+                    className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none cursor-pointer"
                   >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -531,21 +531,21 @@ export default function TeamTodoView({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[9px] uppercase font-bold text-slate-500 mb-1">Due Date</label>
+                  <label className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Due Date</label>
                   <input
                     type="date"
                     value={taskDueDate}
                     onChange={(e) => setTaskDueDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none"
+                    className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-200 focus:outline-none"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">Assignee</label>
+                <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1">Assignee</label>
                 <select
                   value={taskAssignee}
                   onChange={(e) => setTaskAssignee(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none cursor-pointer"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none cursor-pointer"
                 >
                   <option value="">Unassigned</option>
                   {activeTeam?.members.map((email) => (
@@ -559,7 +559,7 @@ export default function TeamTodoView({
                 <button
                   type="button"
                   onClick={() => setIsNewTaskOpen(false)}
-                  className="px-3.5 py-2 rounded-lg bg-slate-950 border border-slate-855 text-xs font-semibold text-slate-400 cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-[#0c0c0e] border border-zinc-800 text-xs font-semibold text-zinc-400 hover:bg-zinc-900/60 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -577,41 +577,41 @@ export default function TeamTodoView({
 
       {/* 4. Collaborative Detail Panel Drawer (Task comments, activity logs) */}
       {selectedTask && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-end z-50">
-          <div className="bg-slate-900 border-l border-slate-800 w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250">
+        <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-end z-50">
+          <div className="bg-zinc-950 border-l border-zinc-800 w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250">
             {/* Header Drawer */}
             <div className="space-y-4 flex-1 overflow-y-auto pr-1">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-base font-bold text-slate-100 truncate pr-4">{selectedTask.title}</h3>
+              <div className="flex items-center justify-between border-b border-zinc-850 pb-3">
+                <h3 className="text-base font-bold text-zinc-150 truncate pr-4">{selectedTask.title}</h3>
                 <button
                   onClick={() => setSelectedTask(null)}
-                  className="text-slate-400 hover:text-slate-200 p-1 cursor-pointer"
+                  className="text-zinc-400 hover:text-zinc-200 p-1 cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Task Details Info */}
-              <div className="space-y-3.5 bg-slate-950 p-4 rounded-xl border border-slate-850 text-xs text-slate-300">
+              <div className="space-y-3.5 bg-[#0c0c0e]/60 p-4 rounded-xl border border-zinc-800 text-xs text-zinc-300">
                 {selectedTask.description && (
                   <div>
-                    <span className="block text-[9px] uppercase font-bold text-slate-500 mb-1">Description</span>
+                    <span className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Description</span>
                     <p className="leading-relaxed">{selectedTask.description}</p>
                   </div>
                 )}
-                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-850/60">
+                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-zinc-800/40">
                   <div>
-                    <span className="block text-[9px] uppercase font-bold text-slate-500 mb-1">Status</span>
+                    <span className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Status</span>
                     <select
                       value={selectedTask.status}
                       onChange={(e) => {
                         if (selectedTeamId) {
-                          const next = e.target.value as TeamTodoStatus;
-                          onUpdateTeamTodo(selectedTeamId, selectedTask.id, { status: next }, currentUserName, `changed status to: ${next}`);
-                          setSelectedTask({ ...selectedTask, status: next });
+                           const next = e.target.value as TeamTodoStatus;
+                           onUpdateTeamTodo(selectedTeamId, selectedTask.id, { status: next }, currentUserName, `changed status to: ${next}`);
+                           setSelectedTask({ ...selectedTask, status: next });
                         }
                       }}
-                      className="bg-slate-900 border border-slate-800 rounded px-2 py-1 text-[10px] font-semibold focus:outline-none cursor-pointer"
+                      className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-[10px] font-semibold focus:outline-none cursor-pointer text-zinc-250"
                     >
                       {BOARD_COLUMNS.map((col) => (
                         <option key={col} value={col}>{col}</option>
@@ -619,27 +619,27 @@ export default function TeamTodoView({
                     </select>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase font-bold text-slate-500 mb-1">Priority</span>
+                    <span className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Priority</span>
                     <span className={`px-2 py-0.5 rounded-full border ${getPriorityColor(selectedTask.priority)}`}>
                       {selectedTask.priority}
                     </span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-855">
+                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-zinc-800/40">
                   {selectedTask.dueDate && (
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-500 mb-0.5">Due Date</span>
-                      <span className="flex items-center gap-1 font-semibold text-slate-400">
-                        <Calendar className="w-3.5 h-3.5 text-slate-500" /> {selectedTask.dueDate}
+                      <span className="block text-[9px] uppercase font-bold text-zinc-500 mb-0.5">Due Date</span>
+                      <span className="flex items-center gap-1 font-semibold text-zinc-400">
+                        <Calendar className="w-3.5 h-3.5 text-zinc-500" /> {selectedTask.dueDate}
                       </span>
                     </div>
                   )}
                   {selectedTask.assignedTo && (
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-500 mb-0.5">Assignee</span>
-                      <span className="flex items-center gap-1 font-semibold text-slate-400">
-                        <User className="w-3.5 h-3.5 text-slate-500" /> {selectedTask.assignedTo}
+                      <span className="block text-[9px] uppercase font-bold text-zinc-500 mb-0.5">Assignee</span>
+                      <span className="flex items-center gap-1 font-semibold text-zinc-400">
+                        <User className="w-3.5 h-3.5 text-zinc-500" /> {selectedTask.assignedTo}
                       </span>
                     </div>
                   )}
@@ -647,22 +647,22 @@ export default function TeamTodoView({
               </div>
 
               {/* Collaborative Comments Stream */}
-              <div className="space-y-4 pt-4 border-t border-slate-800">
-                <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+              <div className="space-y-4 pt-4 border-t border-zinc-800">
+                <h4 className="text-xs font-bold text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
                   <MessageSquare className="w-4 h-4 text-indigo-400" /> Comments Thread
                 </h4>
 
                 {comments.length === 0 ? (
-                  <p className="text-[10px] text-slate-500 italic">No comments written yet. Ask a question or leave notes.</p>
+                  <p className="text-[10px] text-zinc-500 italic">No comments written yet. Ask a question or leave notes.</p>
                 ) : (
                   <div className="space-y-3 max-h-[220px] overflow-y-auto pr-1">
                     {comments.map((c) => (
-                      <div key={c.id} className="bg-slate-950 border border-slate-850 p-2.5 rounded-lg text-xs space-y-1">
+                      <div key={c.id} className="bg-zinc-900/60 border border-zinc-800/80 p-2.5 rounded-lg text-xs space-y-1">
                         <div className="flex justify-between items-center text-[10px]">
                           <span className="font-bold text-indigo-400">{c.userName}</span>
-                          <span className="text-slate-600">{c.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
+                          <span className="text-zinc-500">{c.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
                         </div>
-                        <p className="text-slate-350 leading-relaxed">{c.text}</p>
+                        <p className="text-zinc-300 leading-relaxed">{c.text}</p>
                       </div>
                     ))}
                   </div>
@@ -670,21 +670,21 @@ export default function TeamTodoView({
               </div>
 
               {/* Timeline Logs Activity Feed */}
-              <div className="space-y-4 pt-4 border-t border-slate-800">
-                <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+              <div className="space-y-4 pt-4 border-t border-zinc-800">
+                <h4 className="text-xs font-bold text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
                   <Clock className="w-4 h-4 text-indigo-400" /> Activity Timeline
                 </h4>
                 
                 {activities.length === 0 ? (
-                  <p className="text-[10px] text-slate-500 italic">No activities logged.</p>
+                  <p className="text-[10px] text-zinc-500 italic">No activities logged.</p>
                 ) : (
                   <div className="space-y-2 max-h-[150px] overflow-y-auto pr-1">
                     {activities.map((a) => (
-                      <div key={a.id} className="text-[10px] text-slate-500 flex justify-between gap-2 border-b border-slate-855 pb-1">
+                      <div key={a.id} className="text-[10px] text-zinc-500 flex justify-between gap-2 border-b border-zinc-800/40 pb-1">
                         <span>
-                          <strong className="text-slate-400">{a.userName}</strong> {a.action}
+                          <strong className="text-zinc-400">{a.userName}</strong> {a.action}
                         </span>
-                        <span className="text-slate-600 shrink-0">
+                        <span className="text-zinc-650 shrink-0">
                           {a.createdAt.toLocaleDateString([], { month: "short", day: "numeric" })}
                         </span>
                       </div>
@@ -695,14 +695,14 @@ export default function TeamTodoView({
             </div>
 
             {/* Bottom comment composer box */}
-            <form onSubmit={handleAddComment} className="pt-4 border-t border-slate-800 mt-4 flex gap-2">
+            <form onSubmit={handleAddComment} className="pt-4 border-t border-zinc-800 mt-4 flex gap-2">
               <input
                 type="text"
                 required
                 placeholder="Write a comment..."
                 value={newCommentText}
                 onChange={(e) => setNewCommentText(e.target.value)}
-                className="flex-1 bg-slate-950 border border-slate-855 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+                className="flex-1 bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
               />
               <button
                 type="submit"

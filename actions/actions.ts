@@ -8,7 +8,7 @@ export async function createNewDocument(){
     await auth.protect();
 
     const {sessionClaims}=await auth();
-    const email = sessionClaims?.email;
+    const email = sessionClaims?.email as string;
     if (!email) {
         throw new Error("User email not found in session claims");
     }
