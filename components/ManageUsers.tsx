@@ -1,17 +1,15 @@
 "use client";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState, useTransition } from "react";
 import { Button } from "./ui/button";
-import { usePathname,useRouter } from "next/navigation";
+
 
 import { removeUserFromDocument } from "@/actions/actions";
 import { toast } from "sonner";
@@ -27,7 +25,6 @@ const ManageUsers = () => {
   const isOwner=useOwner();
   const [isOpen, setIsopen] = useState(false);
   const [isPending, setTransition]=useTransition();
-  const pathname=usePathname();
 
   const [usersInRoom]=useCollection(
     user && query(collectionGroup(db,"rooms"),where("roomId","==",room.id))

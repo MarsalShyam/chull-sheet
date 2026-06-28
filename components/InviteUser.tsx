@@ -1,19 +1,17 @@
 "use client";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { FormEvent, startTransition, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "./ui/button";
-import { usePathname,useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
-import { deleteDocument, inviteUserToDocument } from "@/actions/actions";
+import { inviteUserToDocument } from "@/actions/actions";
 import { toast } from "sonner";
 import { Input } from "./ui/input";
 const InviteUser = () => {
@@ -24,7 +22,7 @@ const InviteUser = () => {
 
 //   const router=useRouter();//from navigation
 
-  const handleInvite=async(e:FormEvent)=>{
+  const handleInvite=async()=>{
     const roomId=pathname.split("/").pop(); //pop is used to get the last thing
     if(!roomId) return;
 

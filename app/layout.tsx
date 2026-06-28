@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
 import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
@@ -35,14 +33,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo.png" sizes="any" />
       </head>
-        <body>
-          <Header/>
-          <div className="flex min-h-screen">
-          {/* Sidebar */}
-          <Sidebar/>
-          <div className="flex-1 p-4 bg-gray-100 overflow-y-auto scrollbar-hidden">{children}</div>
-          </div>
-          
+        <body className="h-full bg-background text-foreground">
+          {children}
           <Toaster position="top-center"/>
         </body>
       </html>

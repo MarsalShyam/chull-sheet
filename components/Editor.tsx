@@ -18,7 +18,7 @@ import ChatToDocument from "./ChatToDocument";
 
 type EditorProps={
     doc:Y.Doc;
-    provider:any;
+    provider:LiveblocksYjsProvider;
     darkMode:boolean;
 };
 function BlockNote({doc,provider,darkMode}:EditorProps){
@@ -56,8 +56,10 @@ const Editor = () => {
     useEffect(()=>{
         const yDoc=new Y.Doc();
         const yProvider=new LiveblocksYjsProvider(room,yDoc);
-        setDoc(yDoc);
-        setProvider(yProvider);
+        setTimeout(() => {
+            setDoc(yDoc);
+            setProvider(yProvider);
+        }, 0);
 
         return()=>{
             yDoc?.destroy();

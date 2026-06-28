@@ -8,6 +8,10 @@ export async function createNewDocument(){
     await auth.protect();
 
     const {sessionClaims}=await auth();
+    const email = sessionClaims?.email;
+    if (!email) {
+        throw new Error("User email not found in session claims");
+    }
 
     //Create New Document
 
@@ -18,11 +22,11 @@ export async function createNewDocument(){
 
     await adminDb
     .collection('users')
-    .doc(sessionClaims?.email!)
+    .doc(email)
     .collection("rooms")
     .doc(docRef.id)
     .set({
-        userId:sessionClaims?.email!,
+        userId:email,
         role:"owner",
         createdAt:new Date(),
         roomId:docRef.id,

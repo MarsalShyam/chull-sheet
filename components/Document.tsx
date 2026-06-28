@@ -15,7 +15,7 @@ import Avatars from "./Avatars"
 
 
 const Document = ({id}:{id:string}) => {
-    const [data, loading, error]=useDocumentData(doc(db,"documents",id));
+    const [data]=useDocumentData(doc(db,"documents",id));
 
     const [input,setInput]=useState("");
     const [isUpdating, startTransition]=useTransition();
@@ -23,7 +23,9 @@ const Document = ({id}:{id:string}) => {
 
     useEffect(()=>{
         if(data){
-            setInput(data.title);
+            setTimeout(() => {
+                setInput(data.title);
+            }, 0);
         }
     },[data])
 

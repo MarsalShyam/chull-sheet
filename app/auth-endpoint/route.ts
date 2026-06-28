@@ -10,15 +10,26 @@ export async function POST(req:NextRequest){
     const {sessionClaims}=await auth();
     const {room}=await req.json();
 
-    const session=liveblocks.prepareSession(sessionClaims?.email!,{
+    const email = sessionClaims?.email;
+    const name = sessionClaims?.fullName;
+    const avatar = sessionClaims?.image;
+
+    if (!email || !name || !avatar) {
+        return NextResponse.json(
+            { message: "Missing user details in session claims" },
+            { status: 400 }
+        );
+    }
+
+    const session=liveblocks.prepareSession(email,{
         userInfo:{
-            name:sessionClaims?.fullName!,
-            email:sessionClaims?.email!,
-            avatar:sessionClaims?.image!,
+            name,
+            email,
+            avatar,
         }
     });
 
-    const usersInRoom=await adminDb.collectionGroup("rooms").where("userId","==",sessionClaims?.email).get();
+    const usersInRoom=await adminDb.collectionGroup("rooms").where("userId","==",email).get();
     const userInRoom=usersInRoom.docs.find((doc)=>doc.id==room);
 
     if(userInRoom?.exists){
