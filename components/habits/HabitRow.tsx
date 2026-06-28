@@ -121,7 +121,7 @@ export default function HabitRow({
       <div className="w-64 flex items-center justify-between pr-4 sticky left-0 bg-slate-950 z-10 shrink-0">
         <div className="flex items-center space-x-2 flex-1 min-w-0">
           <GripVertical className="w-4 h-4 text-slate-600 shrink-0 cursor-grab active:cursor-grabbing" />
-          
+
           {isEditing ? (
             <div className="flex items-center space-x-1.5 flex-1 min-w-0 pr-2">
               <input
@@ -164,21 +164,7 @@ export default function HabitRow({
         )}
       </div>
 
-      {/* Streak and Completion Metrics (Sticky Column 2) */}
-      <div className="w-32 flex items-center justify-around text-[10px] text-slate-400 border-r border-slate-800 pr-3 shrink-0">
-        <div className="flex flex-col items-center">
-          <span className="text-orange-400 font-bold">{currentStreak}d</span>
-          <span className="text-[8px] text-slate-600 uppercase">Streak</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <span className="text-indigo-400 font-bold">{maxStreak}d</span>
-          <span className="text-[8px] text-slate-600 uppercase">Max</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <span className="text-slate-300 font-medium">{totalCompletions}</span>
-          <span className="text-[8px] text-slate-600 uppercase">Total</span>
-        </div>
-      </div>
+
 
       {/* Daily Cells Column Container */}
       <div className="flex items-center space-x-1 px-4">
@@ -196,6 +182,22 @@ export default function HabitRow({
             </div>
           );
         })}
+      </div>
+
+      {/* Streak and Completion Metrics (Sticky Column 2) */}
+      <div className="w-32 flex items-center justify-around text-[10px] text-slate-400 border-r border-slate-800 pr-3 shrink-0">
+        <div className="flex flex-col items-center">
+          <span className="text-orange-400 font-bold">{currentStreak}d</span>
+          <span className="text-[8px] text-slate-600 uppercase">Streak</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <span className="text-indigo-400 font-bold">{maxStreak}d</span>
+          <span className="text-[8px] text-slate-600 uppercase">Max</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <span className="text-slate-300 font-medium">{totalCompletions}</span>
+          <span className="text-[8px] text-slate-600 uppercase">Total</span>
+        </div>
       </div>
     </div>
   );

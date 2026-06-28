@@ -5,14 +5,14 @@ import { useUser } from "@clerk/nextjs";
 import { useHabits } from "@/lib/hooks/useHabits";
 import HabitCalendar from "@/components/habits/HabitCalendar";
 import HabitHeatmap from "@/components/habits/HabitHeatmap";
-import { 
-  Plus, 
-  ChevronLeft, 
-  ChevronRight, 
-  Flame, 
-  CheckCircle, 
-  Activity, 
-  Loader2 
+import {
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  Flame,
+  CheckCircle,
+  Activity,
+  Loader2
 } from "lucide-react";
 
 export default function HabitTrackerPage() {
@@ -30,7 +30,7 @@ export default function HabitTrackerPage() {
 
   // Date selection states
   const [currentDate, setCurrentDate] = useState(new Date());
-  
+
   // Dialog state
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [newHabitName, setNewHabitName] = useState("");
@@ -45,12 +45,12 @@ export default function HabitTrackerPage() {
     const month = currentDate.getMonth();
     const date = new Date(year, month, 1);
     const days: Date[] = [];
-    
+
     while (date.getMonth() === month) {
       days.push(new Date(date));
       date.setDate(date.getDate() + 1);
     }
-    
+
     return days;
   }, [currentDate]);
 
@@ -84,7 +84,7 @@ export default function HabitTrackerPage() {
     let monthlyCompletions = 0;
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    
+
     Object.keys(entries).forEach((dateStr) => {
       const [y, m] = dateStr.split("-").map(Number);
       if (y === year && m - 1 === month) {
@@ -187,7 +187,7 @@ export default function HabitTrackerPage() {
         <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-zinc-950 border border-zinc-800 rounded-xl max-w-sm w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
             <h3 className="text-base font-bold text-zinc-150 mb-4">Create New Habit</h3>
-            
+
             <form onSubmit={handleCreateHabit} className="space-y-4">
               <div>
                 <label className="block text-[10px] uppercase font-bold text-zinc-500 mb-1.5">
@@ -213,11 +213,10 @@ export default function HabitTrackerPage() {
                       key={c}
                       type="button"
                       onClick={() => setNewHabitColor(c)}
-                      className={`h-8 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all ${
-                        newHabitColor === c
+                      className={`h-8 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all ${newHabitColor === c
                           ? "border-indigo-500 scale-105"
                           : "border-zinc-800 hover:border-zinc-700"
-                      }`}
+                        }`}
                     >
                       <span className={`w-3.5 h-3.5 rounded-full bg-${c}-500`} />
                     </button>
@@ -244,39 +243,6 @@ export default function HabitTrackerPage() {
           </div>
         </div>
       )}
-
-      {/* Stats Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20 shrink-0">
-            <Activity className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Total Tracked</span>
-            <h3 className="text-xl font-bold text-zinc-200">{stats.totalHabits} Habits</h3>
-          </div>
-        </div>
-
-        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 shrink-0">
-            <CheckCircle className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Monthly Total</span>
-            <h3 className="text-xl font-bold text-zinc-200">{stats.monthlyCompletions} Completed</h3>
-          </div>
-        </div>
-
-        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
-          <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20 shrink-0">
-            <Flame className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Highest Active Streak</span>
-            <h3 className="text-xl font-bold text-zinc-200">{stats.maxCurrentStreak} Days</h3>
-          </div>
-        </div>
-      </div>
 
       {/* GitHub-style Contribution Heatmap */}
       <HabitHeatmap entries={entries} />
@@ -313,6 +279,41 @@ export default function HabitTrackerPage() {
           onReorderHabits={reorderHabits}
         />
       </div>
+
+      {/* Stats Cards Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20 shrink-0">
+            <Activity className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Total Tracked</span>
+            <h3 className="text-xl font-bold text-zinc-200">{stats.totalHabits} Habits</h3>
+          </div>
+        </div>
+
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 shrink-0">
+            <CheckCircle className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Monthly Total</span>
+            <h3 className="text-xl font-bold text-zinc-200">{stats.monthlyCompletions} Completed</h3>
+          </div>
+        </div>
+
+        <div className="p-5 bg-card border border-zinc-800/80 rounded-xl shadow-md flex items-center space-x-4">
+          <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20 shrink-0">
+            <Flame className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Highest Active Streak</span>
+            <h3 className="text-xl font-bold text-zinc-200">{stats.maxCurrentStreak} Days</h3>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   );
 }

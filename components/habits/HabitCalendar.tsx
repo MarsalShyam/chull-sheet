@@ -102,10 +102,7 @@ export default function HabitCalendar({
             <div className="w-64 pl-6 pr-4 sticky left-0 bg-slate-950 z-10 shrink-0 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
               Habits Name
             </div>
-            {/* Header: Streaks (Sticky) */}
-            <div className="w-32 text-center border-r border-slate-850 pr-3 shrink-0 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-              Streaks
-            </div>
+
             {/* Header: Day Numbers */}
             <div className="flex items-center space-x-1 px-4">
               {daysInMonth.map((day) => {
@@ -116,15 +113,18 @@ export default function HabitCalendar({
                 return (
                   <div
                     key={day.getTime()}
-                    className={`w-8 shrink-0 flex flex-col items-center py-1 rounded ${
-                      isCurrent ? "bg-indigo-600/20 text-indigo-400 border border-indigo-500/20" : "text-slate-500"
-                    }`}
+                    className={`w-8 shrink-0 flex flex-col items-center py-1 rounded ${isCurrent ? "bg-indigo-600/20 text-indigo-400 border border-indigo-500/20" : "text-slate-500"
+                      }`}
                   >
                     <span className="text-[10px] font-bold">{dayNum}</span>
                     <span className="text-[8px] uppercase">{dayName}</span>
                   </div>
                 );
               })}
+            </div>
+            {/* Header: Streaks (Sticky) */}
+            <div className="w-32 text-center border-r border-slate-850 pr-3 shrink-0 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+              Streaks
             </div>
           </div>
 

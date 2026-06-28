@@ -224,7 +224,7 @@ export default function TeamTodoView({
           dueDate: taskDueDate,
           labels: [],
           checklist: [],
-          assignedTo: taskAssignee || undefined,
+          assignedTo: taskAssignee || "",
         },
         currentUserName
       );

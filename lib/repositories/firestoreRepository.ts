@@ -397,8 +397,14 @@ export class FirestoreTodoRepository implements ITodoRepository {
   async createTeamTodo(teamId: string, todo: Omit<TeamTodo, "id" | "createdAt" | "updatedAt">, userId: string, userName: string): Promise<string> {
     const todosCol = collection(db, "teams", teamId, "todos");
     const now = new Date();
+    
+    // Sanitize values to avoid passing undefined values to Firestore
+    const cleanedTodo = Object.fromEntries(
+      Object.entries(todo).map(([key, val]) => [key, val === undefined ? "" : val])
+    );
+
     const docRef = await addDoc(todosCol, {
-      ...todo,
+      ...cleanedTodo,
       createdAt: now,
       updatedAt: now,
     });
@@ -438,8 +444,13 @@ export class FirestoreTodoRepository implements ITodoRepository {
     const snap = await getDoc(todoDoc);
     const oldTodo = snap.exists() ? snap.data() : null;
 
+    // Sanitize values to avoid passing undefined values to Firestore
+    const cleanedUpdates = Object.fromEntries(
+      Object.entries(updates).map(([key, val]) => [key, val === undefined ? "" : val])
+    );
+
     await updateDoc(todoDoc, {
-      ...updates,
+      ...cleanedUpdates,
       updatedAt: new Date(),
     });
 
