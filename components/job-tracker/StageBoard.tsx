@@ -145,7 +145,8 @@ export default function StageBoard({ applications, onMoveStage }: StageBoardProp
                           )}
                           {app.salary && (
                             <div className="flex items-center gap-1.5">
-                              <DollarSign className="w-3 h-3 shrink-0 text-zinc-650" />
+                              {/* <DollarSign className="w-3 h-3 shrink-0 text-zinc-650" /> */}
+                              <p className="w-3 h-4 text-zinc-650 shrink-0">₹</p>
                               <span>{app.salary}</span>
                             </div>
                           )}

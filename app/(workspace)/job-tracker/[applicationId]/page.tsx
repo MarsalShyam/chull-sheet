@@ -6,12 +6,12 @@ import { useUser } from "@clerk/nextjs";
 import { useJobTracker } from "@/lib/hooks/useJobTracker";
 import { jobTrackerRepository } from "@/lib/repositories";
 import { JobApplication, JobStage, QAItem } from "@/lib/repositories/interfaces";
-import { 
-  ArrowLeft, 
-  Loader2, 
-  Plus, 
-  Trash2, 
-  ExternalLink, 
+import {
+  ArrowLeft,
+  Loader2,
+  Plus,
+  Trash2,
+  ExternalLink,
   CloudLightning,
   User,
   Mail,
@@ -26,9 +26,9 @@ export default function ApplicationDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { user } = useUser();
-  
+
   const applicationId = params.applicationId as string;
-  
+
   const { deleteApplication } = useJobTracker(user?.id);
   const [app, setApp] = useState<JobApplication | null>(null);
   const [loading, setLoading] = useState(true);
@@ -59,7 +59,7 @@ export default function ApplicationDetailPage() {
 
   const handleFieldChange = async <K extends keyof JobApplication>(fieldName: K, value: JobApplication[K]) => {
     if (!user?.id || !app) return;
-    
+
     // Update local state first
     const updatedApp = { ...app, [fieldName]: value, updatedAt: new Date() };
     setApp(updatedApp);
@@ -105,7 +105,7 @@ export default function ApplicationDetailPage() {
     if (!app) return;
     const updated = [...app.questions];
     updated[index] = { ...updated[index], [key]: val };
-    
+
     // Update state locally
     setApp({ ...app, questions: updated });
   };
@@ -221,7 +221,7 @@ export default function ApplicationDetailPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-card border border-zinc-800/80 rounded-xl p-5 shadow-md">
           <div className="space-y-4">
             <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wider">Position Details</h3>
-            
+
             <div className="space-y-3">
               <div className="flex items-center text-xs">
                 <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
@@ -253,11 +253,12 @@ export default function ApplicationDetailPage() {
 
               <div className="flex items-center text-xs">
                 <span className="w-24 text-zinc-555 font-semibold flex items-center gap-1.5">
-                  <DollarSign className="w-3.5 h-3.5" /> Salary
+                  <p className="w-3 h-4 text-zinc-655 shrink-0">₹</p> Salary
                 </span>
                 <input
                   type="text"
-                  placeholder="e.g. $140,000..."
+                  placeholder="e.g. ₹140,000..."
+
                   value={app.salary || ""}
                   onChange={(e) => setApp({ ...app, salary: e.target.value })}
                   onBlur={() => handleFieldChange("salary", app.salary)}
@@ -337,8 +338,8 @@ export default function ApplicationDetailPage() {
         ) : (
           <div className="space-y-4">
             {app.questions.map((q, idx) => (
-              <div 
-                key={q.id} 
+              <div
+                key={q.id}
                 className="bg-card border border-zinc-800/80 rounded-xl p-4 shadow-md hover:border-zinc-700 transition-all relative group"
               >
                 <button

@@ -284,7 +284,7 @@ export default function JobTrackerPage() {
                   type="date"
                   value={dateApplied}
                   onChange={(e) => setDateApplied(e.target.value)}
-                  className="w-full bg-black border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-500"
+                  className="w-full bg-black border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-500 [color-scheme:dark]"
                 />
               </div>
 

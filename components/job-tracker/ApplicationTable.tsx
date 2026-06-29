@@ -120,7 +120,8 @@ export default function ApplicationTable({
                     <td className="px-5 py-4 text-zinc-400">
                       {app.salary ? (
                         <span className="flex items-center gap-0.5">
-                          <DollarSign className="w-3 h-3 text-zinc-655 shrink-0" />
+                          {/* <DollarSign className="w-3 h-3 text-zinc-655 shrink-0" /> */}
+                          <p className="w-3 h-4 text-zinc-655 shrink-0">₹</p>
                           {app.salary}
                         </span>
                       ) : (
