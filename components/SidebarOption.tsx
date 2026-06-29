@@ -23,17 +23,15 @@ const SidebarOption = ({ href, id }: SidebarOptionProps) => {
   return (
     <Link
       href={href}
-      className={`group flex items-center space-x-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ${
-        isActive
-          ? "bg-indigo-600/20 text-indigo-400 border-l-2 border-indigo-500 pl-2"
-          : "text-zinc-400 hover:bg-zinc-900/45 hover:text-zinc-200"
-      }`}
+      className={`group flex items-center space-x-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ${isActive
+        ? "bg-zinc-800 text-white border-l-2 border-white pl-2"
+        : "text-zinc-400 hover:bg-zinc-900/45 hover:text-zinc-200"
+        }`}
     >
       <FileText
         size={14}
-        className={`flex-shrink-0 transition-colors ${
-          isActive ? "text-indigo-400" : "text-zinc-500 group-hover:text-zinc-400"
-        }`}
+        className={`flex-shrink-0 transition-colors ${isActive ? "text-white" : "text-zinc-500 group-hover:text-zinc-400"
+          }`}
       />
       <span className="truncate flex-1">{data.title || "Untitled Document"}</span>
     </Link>

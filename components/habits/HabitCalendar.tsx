@@ -130,7 +130,7 @@ export default function HabitCalendar({
 
           {/* Table Rows */}
           {habits.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 text-slate-500 text-xs">
+            <div className="flex flex-col pl-5 md:pl-0  md:items-center justify-center py-12 text-slate-500 text-xs">
               <span>No habits created yet. Click &quot;Add Habit&quot; to get started!</span>
             </div>
           ) : (

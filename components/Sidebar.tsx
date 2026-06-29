@@ -20,6 +20,8 @@ import {
   ChevronRight,
   X,
   Compass,
+  PlusIcon,
+  PlusCircle,
 } from "lucide-react";
 
 interface RoomDocument extends DocumentData {
@@ -44,17 +46,16 @@ const Sidebar = ({
   const { user } = useUser();
   const pathname = usePathname();
 
-
   const [isTodoExpanded, setIsTodoExpanded] = useState(true);
   const [isDocsExpanded, setIsDocsExpanded] = useState(true);
   const [isSharedExpanded, setIsSharedExpanded] = useState(true);
 
   const [data] = useCollection(
     user &&
-      query(
-        collectionGroup(db, "rooms"),
-        where("userId", "==", user.emailAddresses[0].toString())
-      )
+    query(
+      collectionGroup(db, "rooms"),
+      where("userId", "==", user.emailAddresses[0].toString())
+    )
   );
 
   const groupedData = useMemo(() => {
@@ -138,11 +139,10 @@ const Sidebar = ({
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
-                className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
-                  active
-                    ? "bg-indigo-600/80 text-white shadow-sm shadow-indigo-600/10"
-                    : "text-zinc-400 hover:bg-zinc-900/60 hover:text-zinc-100"
-                }`}
+                className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${active
+                  ? "bg-zinc-800 text-white"
+                  : "text-zinc-400 hover:bg-zinc-900/60 hover:text-zinc-100"
+                  }`}
               >
                 <Icon size={18} className={active ? "text-white" : "text-zinc-400"} />
                 <span>{item.name}</span>
@@ -165,18 +165,20 @@ const Sidebar = ({
 
             {isTodoExpanded && (
               <div className="pl-9 pr-2 space-y-1 transition-all duration-200">
-                <Suspense fallback={
-                  <>
-                    <div className="flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium text-zinc-500">
-                      <User size={14} />
-                      <span>Personal Todo</span>
-                    </div>
-                    <div className="flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium text-zinc-550">
-                      <Users size={14} />
-                      <span>Team Todo</span>
-                    </div>
-                  </>
-                }>
+                <Suspense
+                  fallback={
+                    <>
+                      <div className="flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium text-zinc-500">
+                        <User size={14} />
+                        <span>Personal Todo</span>
+                      </div>
+                      <div className="flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium text-zinc-500">
+                        <Users size={14} />
+                        <span>Team Todo</span>
+                      </div>
+                    </>
+                  }
+                >
                   <TodoLinks pathname={pathname} setIsMobileOpen={setIsMobileOpen} />
                 </Suspense>
               </div>
@@ -187,7 +189,8 @@ const Sidebar = ({
         <hr className="border-zinc-800/40" />
 
         {/* Create Document Button Container */}
-        <div className="px-1">
+        <div className="px-2">
+
           <NewDocumentButton />
         </div>
 
@@ -245,11 +248,19 @@ const Sidebar = ({
       {user && (
         <div className="p-4 border-t border-zinc-800/40 bg-[#030303] flex items-center space-x-3 text-sm">
           <div className="relative w-8 h-8 rounded-full overflow-hidden border border-zinc-800 bg-zinc-800">
-            <Image src={user.imageUrl} alt={user.fullName || "User"} width={32} height={32} className="object-cover w-full h-full" />
+            <Image
+              src={user.imageUrl}
+              alt={user.fullName || "User"}
+              width={32}
+              height={32}
+              className="object-cover w-full h-full"
+            />
           </div>
           <div className="flex-1 truncate">
             <p className="font-semibold text-zinc-200 truncate">{user.fullName}</p>
-            <p className="text-xs text-zinc-500 truncate">{user.emailAddresses[0].toString()}</p>
+            <p className="text-xs text-zinc-500 truncate">
+              {user.emailAddresses[0].toString()}
+            </p>
           </div>
         </div>
       )}
@@ -260,9 +271,8 @@ const Sidebar = ({
     <>
       {/* Desktop Sidebar (Left side) */}
       <aside
-        className={`hidden md:block fixed top-0 left-0 bottom-0 z-20 h-screen transition-all duration-300 ${
-          isCollapsed ? "w-0 overflow-hidden" : "w-64"
-        }`}
+        className={`hidden md:block fixed top-0 left-0 bottom-0 z-20 h-screen transition-all duration-300 ${isCollapsed ? "w-0 overflow-hidden" : "w-64"
+          }`}
       >
         {sidebarContent}
       </aside>
@@ -303,25 +313,23 @@ function TodoLinks({
       <Link
         href="/todo?type=personal"
         onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
-        className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
-          isPersonalActive
-            ? "bg-zinc-800 text-white"
-            : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
-        }`}
+        className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${isPersonalActive
+          ? "bg-zinc-800 text-white"
+          : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
+          }`}
       >
-        <User size={14} />
+        <User size={14} className={isPersonalActive ? "text-white" : "text-zinc-400"} />
         <span>Personal Todo</span>
       </Link>
       <Link
         href="/todo?type=team"
         onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
-        className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
-          isTeamActive
-            ? "bg-zinc-800 text-white"
-            : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
-        }`}
+        className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${isTeamActive
+          ? "bg-zinc-800 text-white"
+          : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
+          }`}
       >
-        <Users size={14} />
+        <Users size={14} className={isTeamActive ? "text-white" : "text-zinc-400"} />
         <span>Team Todo</span>
       </Link>
     </>

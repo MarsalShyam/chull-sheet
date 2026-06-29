@@ -38,7 +38,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo.png" sizes="any" />
       </head>
-        <body className="h-full bg-background text-foreground">
+        <body className="h-full bg-background text-foreground font-sans">
           {children}
           <Toaster position="top-center"/>
         </body>
