@@ -6,10 +6,10 @@ import { useSearchParams } from "next/navigation";
 import { useTodos } from "@/lib/hooks/useTodos";
 import PersonalTodoView from "@/components/todo/PersonalTodoView";
 import TeamTodoView from "@/components/todo/TeamTodoView";
-import { 
-  CheckSquare, 
-  Loader2, 
-  Bell, 
+import {
+  CheckSquare,
+  Loader2,
+  Bell,
   BellOff
 } from "lucide-react";
 
@@ -24,7 +24,7 @@ function TodoContent() {
     setSelectedTeamId,
     teamTodos,
     notifications,
-    
+
     // Actions
     addPersonalTodo,
     updatePersonalTodo,
@@ -42,7 +42,7 @@ function TodoContent() {
 
   const searchParams = useSearchParams();
   const type = searchParams.get("type") || "personal";
-  
+
   // Show notifications dropdown state
   const [isNotifOpen, setIsNotifOpen] = useState(false);
 
@@ -70,10 +70,10 @@ function TodoContent() {
   return (
     <div className="space-y-8 pb-12">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col items-center justify-center gap-4">
         <div>
           <h1 className="text-2xl font-black text-zinc-100 tracking-tight flex items-center gap-2">
-            <CheckSquare className="w-6 h-6 text-indigo-400" />
+            <CheckSquare className="w-6 h-6 text-white" />
             {type === "team" ? "Team Collaboration Workspace" : "Personal Task Management"}
           </h1>
           <p className="text-zinc-400 text-xs mt-1">
@@ -85,7 +85,7 @@ function TodoContent() {
 
         {/* Notifications Icon Bell - ONLY visible for Team view */}
         {type === "team" && (
-          <div className="relative self-end md:self-auto">
+          <div className="relative self-end">
             <button
               onClick={() => setIsNotifOpen(!isNotifOpen)}
               className="relative p-2.5 rounded-lg border border-zinc-800/80 bg-zinc-950/60 hover:bg-zinc-900 hover:border-zinc-700 transition-colors cursor-pointer"
@@ -105,7 +105,7 @@ function TodoContent() {
                     {unreadNotifications.length} New
                   </span>
                 </div>
-                
+
                 <div className="space-y-2.5 max-h-[250px] overflow-y-auto pr-1">
                   {notifications.length === 0 ? (
                     <div className="text-center py-6 text-zinc-500 text-xs flex flex-col items-center gap-1.5">
@@ -117,11 +117,10 @@ function TodoContent() {
                       <div
                         key={n.id}
                         onClick={() => handleNotificationClick(n.id)}
-                        className={`p-2.5 rounded-lg text-xs transition-colors border cursor-pointer ${
-                          n.read
-                            ? "bg-zinc-900/10 border-zinc-900 text-zinc-500"
-                            : "bg-[#0c0c0e] border-zinc-800 text-zinc-200 hover:border-zinc-700"
-                        }`}
+                        className={`p-2.5 rounded-lg text-xs transition-colors border cursor-pointer ${n.read
+                          ? "bg-zinc-900/10 border-zinc-900 text-zinc-500"
+                          : "bg-[#0c0c0e] border-zinc-800 text-zinc-200 hover:border-zinc-700"
+                          }`}
                       >
                         <div className="flex justify-between items-start mb-1">
                           <span className="font-bold">{n.title}</span>

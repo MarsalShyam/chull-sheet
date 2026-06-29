@@ -190,7 +190,6 @@ const Sidebar = ({
 
         {/* Create Document Button Container */}
         <div className="px-2">
-
           <NewDocumentButton />
         </div>
 

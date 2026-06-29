@@ -1,27 +1,27 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { 
-  Team, 
-  TeamTodo, 
-  TeamTodoStatus, 
-  TodoPriority, 
-  TodoComment, 
-  ActivityLog, 
-  TeamMemberRole 
+import {
+  Team,
+  TeamTodo,
+  TeamTodoStatus,
+  TodoPriority,
+  TodoComment,
+  ActivityLog,
+  TeamMemberRole
 } from "@/lib/repositories/interfaces";
 import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase";
 import { todoRepository } from "@/lib/repositories";
-import { 
-  Users2, 
-  Plus, 
-  UserPlus, 
-  Clock, 
-  MessageSquare, 
-  Calendar, 
-  User, 
-  X, 
+import {
+  Users2,
+  Plus,
+  UserPlus,
+  Clock,
+  MessageSquare,
+  Calendar,
+  User,
+  X,
   Settings,
   Trash2,
   Shield,
@@ -66,33 +66,22 @@ export default function TeamTodoView({
   updateTeam,
   deleteTeam,
 }: TeamTodoViewProps) {
-  // Dialog Open States
   const [isNewTeamOpen, setIsNewTeamOpen] = useState(false);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [isNewTaskOpen, setIsNewTaskOpen] = useState(false);
-  
-  // Selected Card for Details Panel Modal
   const [selectedTask, setSelectedTask] = useState<TeamTodo | null>(null);
-
-  // Form Fields
   const [teamName, setTeamName] = useState("");
   const [teamDesc, setTeamDesc] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRole, setInviteRole] = useState<TeamMemberRole>("Member");
-
-  // New Team Task Form Fields
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
   const [taskPriority, setTaskPriority] = useState<TodoPriority>("Medium");
   const [taskDueDate, setTaskDueDate] = useState("");
   const [taskAssignee, setTaskAssignee] = useState("");
-
-  // Subscriptions for Selected Card (Comments and Activity logs)
   const [comments, setComments] = useState<TodoComment[]>([]);
   const [activities, setActivities] = useState<ActivityLog[]>([]);
   const [newCommentText, setNewCommentText] = useState("");
-
-  // Members & Settings Panel State
   const [isMembersOpen, setIsMembersOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [teamSettingsName, setTeamSettingsName] = useState("");
@@ -109,7 +98,6 @@ export default function TeamTodoView({
     return "Member";
   }, [activeTeam, currentUserEmail]);
 
-  // Group team tasks by Kanban status
   const groupedTasks = useMemo(() => {
     const groups: Record<TeamTodoStatus, TeamTodo[]> = {
       "Todo": [],
@@ -125,7 +113,6 @@ export default function TeamTodoView({
     return groups;
   }, [teamTodos]);
 
-  // Fetch comments and activities when a task is opened
   useEffect(() => {
     if (!selectedTeamId || !selectedTask) {
       setTimeout(() => {
@@ -135,7 +122,6 @@ export default function TeamTodoView({
       return;
     }
 
-    // Subscribe to comments
     const commentsCol = collection(db, "teams", selectedTeamId, "comments");
     const commentsQuery = query(
       commentsCol,
@@ -158,7 +144,6 @@ export default function TeamTodoView({
       setComments(list);
     });
 
-    // Subscribe to activities
     const activitiesCol = collection(db, "teams", selectedTeamId, "activities");
     const activitiesQuery = query(
       activitiesCol,
@@ -186,7 +171,6 @@ export default function TeamTodoView({
     };
   }, [selectedTeamId, selectedTask]);
 
-  // HTML5 Drag and Drop Card handlers
   const handleDragStart = (e: React.DragEvent, taskId: string) => {
     e.dataTransfer.setData("taskId", taskId);
     e.dataTransfer.effectAllowed = "move";
@@ -249,8 +233,6 @@ export default function TeamTodoView({
         },
         currentUserName
       );
-
-      // Reset
       setTaskTitle("");
       setTaskDesc("");
       setTaskPriority("Medium");
@@ -303,11 +285,10 @@ export default function TeamTodoView({
               <button
                 key={t.id}
                 onClick={() => setSelectedTeamId(t.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
-                  selectedTeamId === t.id
-                    ? "bg-zinc-800 text-zinc-100 shadow-sm border border-zinc-700/50"
-                    : "bg-[#0c0c0e] border border-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60"
-                }`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${selectedTeamId === t.id
+                  ? "bg-zinc-800 text-zinc-100 shadow-sm border border-zinc-700/50"
+                  : "bg-[#0c0c0e] border border-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60"
+                  }`}
               >
                 {t.name}
               </button>
@@ -315,7 +296,7 @@ export default function TeamTodoView({
           )}
           <button
             onClick={() => setIsNewTeamOpen(true)}
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-dashed border-indigo-500/50 text-xs font-semibold text-indigo-400 hover:bg-indigo-500/10 cursor-pointer"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-dashed border-white-500/50 text-xs font-semibold text-white-400 hover:bg-white-500/10 cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" /> Create Team
           </button>
@@ -355,80 +336,88 @@ export default function TeamTodoView({
           {/* Active Board Actions */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Users2 className="w-4 h-4 text-indigo-400" />
+              <Users2 className="w-4 h-4 text-zinc-400" />
               <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wider">
                 {activeTeam?.name} Board
               </h3>
             </div>
             <button
               onClick={() => setIsNewTaskOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white shadow-sm cursor-pointer"
+              className="inline-flex w-fit items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-300 text-xs font-semibold text-black shadow-sm cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" /> Add Team Task
             </button>
           </div>
 
-          {/* Kanban Columns */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start select-none overflow-x-auto pb-4">
-            {BOARD_COLUMNS.map((column) => {
-              const tasks = groupedTasks[column] || [];
-              return (
-                <div
-                  key={column}
-                  onDragOver={handleDragOver}
-                  onDrop={(e) => handleDrop(e, column)}
-                  className="flex flex-col bg-[#0c0c0e]/30 border border-zinc-800/80 rounded-xl p-3 min-h-[400px] shrink-0"
-                >
-                  {/* Column Header */}
-                  <div className={`flex items-center justify-between border px-2.5 py-1.5 rounded-lg text-xs font-bold mb-3 shadow-sm ${columnHeadersColors[column]}`}>
-                    <span>{column}</span>
-                    <span className="bg-zinc-900/60 border border-zinc-850 px-2 py-0.5 rounded text-[10px] text-zinc-300">{tasks.length}</span>
-                  </div>
+          {/* ✅ Kanban Board — horizontal scroll on small screens */}
+          <div className="w-full overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+            {/* ✅ Inner flex row — min-w keeps all 4 columns in one row always */}
+            <div className="flex gap-4 min-w-[720px]">
+              {BOARD_COLUMNS.map((column) => {
+                const tasks = groupedTasks[column] || [];
+                return (
+                  <div
+                    key={column}
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, column)}
+                    // ✅ flex-1 so columns share space equally on large screens
+                    className="flex flex-col flex-1 bg-[#0c0c0e]/30 border border-zinc-800/80 rounded-xl p-3 min-h-[400px]"
+                  >
+                    {/* Column Header */}
+                    <div
+                      className={`flex items-center justify-between border px-2.5 py-1.5 rounded-lg text-xs font-bold mb-3 shadow-sm ${columnHeadersColors[column]}`}
+                    >
+                      <span>{column}</span>
+                      <span className="bg-zinc-900/60 border border-zinc-850 px-2 py-0.5 rounded text-[10px] text-zinc-300 ml-1 shrink-0">
+                        {tasks.length}
+                      </span>
+                    </div>
 
-                  {/* Task Cards */}
-                  <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[450px]">
-                    {tasks.length === 0 ? (
-                      <div className="h-full border border-dashed border-zinc-800/80 rounded-lg flex items-center justify-center p-6 text-zinc-550 text-[10px] text-center">
-                        Drag here
-                      </div>
-                    ) : (
-                      tasks.map((task) => (
-                        <div
-                          key={task.id}
-                          draggable
-                          onDragStart={(e) => handleDragStart(e, task.id)}
-                          onClick={() => setSelectedTask(task)}
-                          className="bg-card border border-zinc-800/80 hover:border-indigo-500/50 p-3 rounded-lg shadow-md hover:shadow-lg cursor-pointer transition-all duration-200 relative overflow-hidden"
-                        >
-                          <h4 className="font-bold text-xs text-zinc-250 truncate mb-1">
-                            {task.title}
-                          </h4>
-                          {task.description && (
-                            <p className="text-[10px] text-zinc-500 truncate mb-3">{task.description}</p>
-                          )}
-                          <div className="flex items-center justify-between text-[9px] text-zinc-500">
-                            <span className={`px-2 py-0.5 rounded-full border ${getPriorityColor(task.priority)}`}>
-                              {task.priority}
-                            </span>
-                            {task.assignedTo && (
-                              <span className="bg-slate-100 border border-slate-200 text-slate-500 px-1.5 py-0.5 rounded flex items-center gap-1 max-w-[100px] truncate">
-                                <User className="w-2.5 h-2.5" /> {task.assignedTo}
-                              </span>
-                            )}
-                          </div>
+                    {/* Task Cards */}
+                    <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[450px]">
+                      {tasks.length === 0 ? (
+                        <div className="h-full border border-dashed border-zinc-800/80 rounded-lg flex items-center justify-center p-6 text-zinc-550 text-[10px] text-center">
+                          Drag here
                         </div>
-                      ))
-                    )}
+                      ) : (
+                        tasks.map((task) => (
+                          <div
+                            key={task.id}
+                            draggable
+                            onDragStart={(e) => handleDragStart(e, task.id)}
+                            onClick={() => setSelectedTask(task)}
+                            className="bg-card border border-zinc-800/80 hover:border-zinc-300/50 p-3 rounded-lg shadow-md hover:shadow-lg cursor-pointer transition-all duration-200 relative overflow-hidden"
+                          >
+                            <h4 className="font-bold text-xs text-zinc-250 truncate mb-1">
+                              {task.title}
+                            </h4>
+                            {task.description && (
+                              <p className="text-[10px] text-zinc-500 truncate mb-3">
+                                {task.description}
+                              </p>
+                            )}
+                            <div className="flex items-center justify-between text-[9px] text-zinc-500">
+                              <span className={`px-2 py-0.5 rounded-full border ${getPriorityColor(task.priority)}`}>
+                                {task.priority}
+                              </span>
+                              {task.assignedTo && (
+                                <span className="bg-slate-100 border border-slate-200 text-slate-500 px-1.5 py-0.5 rounded flex items-center gap-1 max-w-[100px] truncate">
+                                  <User className="w-2.5 h-2.5" /> {task.assignedTo}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
 
-      {/* Modal Dialogs */}
-      {/* Overlays / Modals */}
       {/* 1. New Team Overlay */}
       {isNewTeamOpen && (
         <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -443,7 +432,7 @@ export default function TeamTodoView({
                   placeholder="e.g. Study Group, Launch Team"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-300"
                 />
               </div>
               <div>
@@ -452,7 +441,7 @@ export default function TeamTodoView({
                   placeholder="What is this team working on?"
                   value={teamDesc}
                   onChange={(e) => setTeamDesc(e.target.value)}
-                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 h-16 resize-none"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-300 h-16 resize-none"
                 />
               </div>
               <div className="flex justify-end gap-2.5">
@@ -465,7 +454,7 @@ export default function TeamTodoView({
                 </button>
                 <button
                   type="submit"
-                  className="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-300 text-xs font-semibold text-black cursor-pointer"
                 >
                   Create
                 </button>
@@ -489,7 +478,7 @@ export default function TeamTodoView({
                   placeholder="collaborator@domain.com"
                   value={inviteEmail}
                   onChange={(e) => setInviteEmail(e.target.value)}
-                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-300"
                 />
               </div>
               <div>
@@ -513,7 +502,7 @@ export default function TeamTodoView({
                 </button>
                 <button
                   type="submit"
-                  className="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-300 text-xs font-semibold text-black cursor-pointer"
                 >
                   Send Invitation
                 </button>
@@ -537,7 +526,7 @@ export default function TeamTodoView({
                   placeholder="Task title..."
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
-                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-300"
                 />
               </div>
               <div>
@@ -546,7 +535,7 @@ export default function TeamTodoView({
                   placeholder="Add detailed scope..."
                   value={taskDesc}
                   onChange={(e) => setTaskDesc(e.target.value)}
-                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 h-16 resize-none"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-300 h-16 resize-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -568,7 +557,7 @@ export default function TeamTodoView({
                     type="date"
                     value={taskDueDate}
                     onChange={(e) => setTaskDueDate(e.target.value)}
-                    className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-200 focus:outline-none"
+                    className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-200 focus:outline-none [color-scheme:dark]"
                   />
                 </div>
               </div>
@@ -597,7 +586,7 @@ export default function TeamTodoView({
                 </button>
                 <button
                   type="submit"
-                  className="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-300 text-xs font-semibold text-black cursor-pointer"
                 >
                   Create Task
                 </button>
@@ -607,11 +596,10 @@ export default function TeamTodoView({
         </div>
       )}
 
-      {/* 4. Collaborative Detail Panel Drawer (Task comments, activity logs) */}
+      {/* 4. Task Detail Drawer */}
       {selectedTask && (
         <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-end z-50">
           <div className="bg-zinc-950 border-l border-zinc-800 w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250">
-            {/* Header Drawer */}
             <div className="space-y-4 flex-1 overflow-y-auto pr-1">
               <div className="flex items-center justify-between border-b border-zinc-850 pb-3">
                 <h3 className="text-base font-bold text-zinc-150 truncate pr-4">{selectedTask.title}</h3>
@@ -623,7 +611,6 @@ export default function TeamTodoView({
                 </button>
               </div>
 
-              {/* Task Details Info */}
               <div className="space-y-3.5 bg-[#0c0c0e]/60 p-4 rounded-xl border border-zinc-800 text-xs text-zinc-300">
                 {selectedTask.description && (
                   <div>
@@ -638,9 +625,9 @@ export default function TeamTodoView({
                       value={selectedTask.status}
                       onChange={(e) => {
                         if (selectedTeamId) {
-                           const next = e.target.value as TeamTodoStatus;
-                           onUpdateTeamTodo(selectedTeamId, selectedTask.id, { status: next }, currentUserName, `changed status to: ${next}`);
-                           setSelectedTask({ ...selectedTask, status: next });
+                          const next = e.target.value as TeamTodoStatus;
+                          onUpdateTeamTodo(selectedTeamId, selectedTask.id, { status: next }, currentUserName, `changed status to: ${next}`);
+                          setSelectedTask({ ...selectedTask, status: next });
                         }
                       }}
                       className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-[10px] font-semibold focus:outline-none cursor-pointer text-zinc-250"
@@ -652,7 +639,7 @@ export default function TeamTodoView({
                   </div>
                   <div>
                     <span className="block text-[9px] uppercase font-bold text-zinc-500 mb-1">Priority</span>
-                    <span className={`px-2 py-0.5 rounded-full border ${getPriorityColor(selectedTask.priority)}`}>
+                    <span className={`px-2 py-0.5 rounded-full border text-[10px] ${getPriorityColor(selectedTask.priority)}`}>
                       {selectedTask.priority}
                     </span>
                   </div>
@@ -678,12 +665,10 @@ export default function TeamTodoView({
                 </div>
               </div>
 
-              {/* Collaborative Comments Stream */}
               <div className="space-y-4 pt-4 border-t border-zinc-800">
                 <h4 className="text-xs font-bold text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
-                  <MessageSquare className="w-4 h-4 text-indigo-400" /> Comments Thread
+                  <MessageSquare className="w-4 h-4 text-zinc-400" /> Comments Thread
                 </h4>
-
                 {comments.length === 0 ? (
                   <p className="text-[10px] text-zinc-500 italic">No comments written yet. Ask a question or leave notes.</p>
                 ) : (
@@ -691,7 +676,7 @@ export default function TeamTodoView({
                     {comments.map((c) => (
                       <div key={c.id} className="bg-zinc-900/60 border border-zinc-800/80 p-2.5 rounded-lg text-xs space-y-1">
                         <div className="flex justify-between items-center text-[10px]">
-                          <span className="font-bold text-indigo-400">{c.userName}</span>
+                          <span className="font-bold text-zinc-200">{c.userName}</span>
                           <span className="text-zinc-500">{c.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
                         </div>
                         <p className="text-zinc-300 leading-relaxed">{c.text}</p>
@@ -701,12 +686,10 @@ export default function TeamTodoView({
                 )}
               </div>
 
-              {/* Timeline Logs Activity Feed */}
               <div className="space-y-4 pt-4 border-t border-zinc-800">
                 <h4 className="text-xs font-bold text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-indigo-400" /> Activity Timeline
+                  <Clock className="w-4 h-4 text-zinc-400" /> Activity Timeline
                 </h4>
-                
                 {activities.length === 0 ? (
                   <p className="text-[10px] text-zinc-500 italic">No activities logged.</p>
                 ) : (
@@ -726,7 +709,6 @@ export default function TeamTodoView({
               </div>
             </div>
 
-            {/* Bottom comment composer box */}
             <form onSubmit={handleAddComment} className="pt-4 border-t border-zinc-800 mt-4 flex gap-2">
               <input
                 type="text"
@@ -734,11 +716,11 @@ export default function TeamTodoView({
                 placeholder="Write a comment..."
                 value={newCommentText}
                 onChange={(e) => setNewCommentText(e.target.value)}
-                className="flex-1 bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
+                className="flex-1 bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-300"
               />
               <button
                 type="submit"
-                className="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                className="px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-105 text-xs font-semibold text-black cursor-pointer"
               >
                 Send
               </button>
@@ -747,15 +729,14 @@ export default function TeamTodoView({
         </div>
       )}
 
-      {/* 5. Members List Panel Drawer */}
+      {/* 5. Members Panel Drawer */}
       {isMembersOpen && activeTeam && (
         <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-end z-50">
           <div className="bg-zinc-950 border-l border-zinc-800 w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250">
             <div className="space-y-6 flex-1 overflow-y-auto pr-1">
-              {/* Header */}
               <div className="flex items-center justify-between border-b border-zinc-850 pb-3">
                 <h3 className="text-base font-bold text-zinc-150 flex items-center gap-2">
-                  <Users2 className="w-5 h-5 text-indigo-400" />
+                  <Users2 className="w-5 h-5 text-white-400" />
                   Team Members
                 </h3>
                 <button
@@ -766,9 +747,8 @@ export default function TeamTodoView({
                 </button>
               </div>
 
-              {/* Invite button (Admin/Owner only) */}
               {(currentUserRole === "Owner" || currentUserRole === "Admin") && (
-                <div className="bg-indigo-600/5 border border-indigo-500/20 p-4 rounded-xl flex items-center justify-between">
+                <div className="bg-white/5 border border-white-500/20 p-4 rounded-xl flex items-center justify-between">
                   <div>
                     <h4 className="text-xs font-bold text-zinc-200">Invite new members</h4>
                     <p className="text-[10px] text-zinc-400 mt-0.5">Add collaborators to this team board.</p>
@@ -776,21 +756,19 @@ export default function TeamTodoView({
                   <button
                     onClick={() => {
                       setIsInviteOpen(true);
-                      setIsMembersOpen(false); // Close members list while opening invite modal
+                      setIsMembersOpen(false);
                     }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-105 text-xs font-semibold text-black cursor-pointer"
                   >
                     <UserPlus className="w-3.5 h-3.5" /> Invite
                   </button>
                 </div>
               )}
 
-              {/* Members List */}
               <div className="space-y-3">
                 <span className="block text-[10px] uppercase font-bold text-zinc-550 tracking-wider">
                   Current Members ({activeTeam.members.length})
                 </span>
-                
                 <div className="space-y-2">
                   {activeTeam.members.map((email) => {
                     const isOwner = email === activeTeam.ownerEmail;
@@ -823,17 +801,13 @@ export default function TeamTodoView({
                       >
                         <div className="flex flex-col truncate pr-2">
                           <span className="text-xs text-zinc-200 truncate font-semibold">
-                            {email} {isSelf && <span className="text-indigo-400">(You)</span>}
+                            {email} {isSelf && <span className="text-white-400">(You)</span>}
                           </span>
                         </div>
-                        
                         <div className="flex items-center space-x-2 shrink-0">
                           {roleBadge}
-
-                          {/* Member management actions */}
                           {!isOwner && !isSelf && (
                             <>
-                              {/* Owner actions: Toggle role or Remove */}
                               {currentUserRole === "Owner" && (
                                 <div className="flex items-center space-x-1.5">
                                   {isAdmin ? (
@@ -854,7 +828,7 @@ export default function TeamTodoView({
                                         const updatedAdmins = [...activeTeam.admins, email];
                                         await updateTeam(activeTeam.id, { admins: updatedAdmins });
                                       }}
-                                      className="text-indigo-400 hover:text-indigo-300 p-1 text-[10px] font-bold cursor-pointer"
+                                      className="text-white-400 hover:text-white-300 p-1 text-[10px] font-bold cursor-pointer"
                                     >
                                       Make Admin
                                     </button>
@@ -868,8 +842,6 @@ export default function TeamTodoView({
                                   </button>
                                 </div>
                               )}
-
-                              {/* Admin actions: Remove Member only (cannot touch other Admins or Owner) */}
                               {currentUserRole === "Admin" && !isAdmin && (
                                 <button
                                   title="Remove from Team"
@@ -888,7 +860,7 @@ export default function TeamTodoView({
                 </div>
               </div>
             </div>
-            
+
             <div className="pt-4 border-t border-zinc-855 mt-4">
               <button
                 onClick={() => setIsMembersOpen(false)}
@@ -901,7 +873,7 @@ export default function TeamTodoView({
         </div>
       )}
 
-      {/* 6. Team Settings / Edit / Delete Modal */}
+      {/* 6. Team Settings Modal */}
       {isSettingsOpen && activeTeam && (
         <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-zinc-955 border border-zinc-850 rounded-xl max-w-md w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
@@ -939,7 +911,7 @@ export default function TeamTodoView({
                   placeholder="Study Group, Launch Team..."
                   value={teamSettingsName}
                   onChange={(e) => setTeamSettingsName(e.target.value)}
-                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-white-500"
                 />
               </div>
               <div>
@@ -948,10 +920,9 @@ export default function TeamTodoView({
                   placeholder="What is this team working on?"
                   value={teamSettingsDesc}
                   onChange={(e) => setTeamSettingsDesc(e.target.value)}
-                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 h-20 resize-none"
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-white-500 h-20 resize-none"
                 />
               </div>
-
               <div className="flex justify-end gap-2.5 pt-2">
                 <button
                   type="button"
@@ -962,14 +933,13 @@ export default function TeamTodoView({
                 </button>
                 <button
                   type="submit"
-                  className="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-105 text-xs font-semibold text-black cursor-pointer"
                 >
                   Save Changes
                 </button>
               </div>
             </form>
 
-            {/* Danger Zone: Delete Team */}
             <div className="mt-6 pt-6 border-t border-zinc-850 space-y-3">
               <h4 className="text-xs font-bold text-rose-500 flex items-center gap-1.5">
                 <ShieldAlert className="w-4 h-4" /> Danger Zone
