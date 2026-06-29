@@ -163,20 +163,20 @@ export default function HabitTrackerPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-black text-zinc-100 tracking-tight flex items-center gap-2">
-            <Activity className="w-6 h-6 text-indigo-450 animate-pulse" />
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-2xl font-black text-zinc-100 tracking-tight flex items-center justify-center gap-2">
+            {/* <Activity className="w-6 h-6 text-indigo-450 animate-pulse" /> */}
             Habit Consistency Tracker
           </h1>
-          <p className="text-zinc-400 text-xs mt-1">
+          <p className="text-zinc-400 text-xs mt-1 flex items-center justify-center">
             Build discipline with visual tracking and streaks.
           </p>
         </div>
 
         <button
           onClick={() => setIsAddOpen(true)}
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white shadow-md shadow-indigo-600/10 active:scale-95 transition-all cursor-pointer"
+          className="inline-flex w-fit items-center gap-1.5 px-4 py-2.5 rounded-lg bg-white hover:bg-gray-300 text-xs font-semibold text-black shadow-md shadow-gray-600/10 active:scale-95 transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Add Habit
         </button>
@@ -214,8 +214,8 @@ export default function HabitTrackerPage() {
                       type="button"
                       onClick={() => setNewHabitColor(c)}
                       className={`h-8 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all ${newHabitColor === c
-                          ? "border-indigo-500 scale-105"
-                          : "border-zinc-800 hover:border-zinc-700"
+                        ? "border-indigo-500 scale-105"
+                        : "border-zinc-800 hover:border-zinc-700"
                         }`}
                     >
                       <span className={`w-3.5 h-3.5 rounded-full bg-${c}-500`} />
@@ -244,8 +244,7 @@ export default function HabitTrackerPage() {
         </div>
       )}
 
-      {/* GitHub-style Contribution Heatmap */}
-      <HabitHeatmap entries={entries} />
+
 
       {/* Month Navigation & Main Spreadsheet Grid */}
       <div className="space-y-4">
@@ -312,6 +311,9 @@ export default function HabitTrackerPage() {
           </div>
         </div>
       </div>
+
+      {/* GitHub-style Contribution Heatmap */}
+      <HabitHeatmap entries={entries} />
 
 
     </div>

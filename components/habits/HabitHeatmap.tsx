@@ -7,33 +7,48 @@ interface HabitHeatmapProps {
   entries: HabitEntries;
 }
 
+// Constants
+const DAYS_TO_SHOW = 364; // 52 weeks exactly — clean grid, no year overlap
+const CELL_SIZE = 10; // px (w-2.5 = 10px)
+const CELL_GAP = 3; // px
+const COLUMN_WIDTH = CELL_SIZE + CELL_GAP; // 13px per week column
+
 export default function HabitHeatmap({ entries }: HabitHeatmapProps) {
-  // Generate past 365 days aligned to weeks (Sunday-Saturday)
-  const gridData = useMemo(() => {
+  // Generate dates aligned to weeks (Sunday-Saturday)
+  const weeks = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
-    // Go back 364 days
+
+    // Start from (DAYS_TO_SHOW - 1) days ago
     const startDate = new Date(today);
-    startDate.setDate(today.getDate() - 364);
-    
-    // Align start date to Sunday
+    startDate.setDate(today.getDate() - (DAYS_TO_SHOW - 1));
+
+    // Align start date to the nearest previous Sunday
     const startDay = startDate.getDay();
     startDate.setDate(startDate.getDate() - startDay);
 
+    // Align end date (today) to the next Saturday for a complete final week
+    const endDate = new Date(today);
+    const endDay = endDate.getDay();
+    endDate.setDate(endDate.getDate() + (6 - endDay));
+
+    // Generate all dates between aligned start and end
     const dates: Date[] = [];
     const tempDate = new Date(startDate);
-    
-    // Generate exactly 53 weeks (371 days) to make a perfect grid
-    for (let i = 0; i < 371; i++) {
+    while (tempDate <= endDate) {
       dates.push(new Date(tempDate));
       tempDate.setDate(tempDate.getDate() + 1);
     }
-    
-    return dates;
+
+    // Group into weeks of 7 days
+    const result: Date[][] = [];
+    for (let i = 0; i < dates.length; i += 7) {
+      result.push(dates.slice(i, i + 7));
+    }
+    return result;
   }, []);
 
-  // Format Date to YYYY-MM-DD local string
+  // Format Date → "YYYY-MM-DD" in local time
   const formatDateStr = (date: Date) => {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -54,34 +69,43 @@ export default function HabitHeatmap({ entries }: HabitHeatmapProps) {
     return "bg-emerald-500 border-emerald-400 hover:bg-emerald-400";
   };
 
-  // Group dates into weeks (7 days each)
-  const weeks = useMemo(() => {
-    const result: Date[][] = [];
-    for (let i = 0; i < gridData.length; i += 7) {
-      result.push(gridData.slice(i, i + 7));
-    }
-    return result;
-  }, [gridData]);
-
-  // Months label calculation
+  // Month labels — GitHub style:
+  // A label appears at the first week where a new month begins,
+  // but ONLY if that month occupies enough of the column to "claim" it.
   const monthLabels = useMemo(() => {
     const labels: { text: string; index: number }[] = [];
-    let lastMonth = -1;
+    let lastMonthKey = "";
 
     weeks.forEach((week, weekIndex) => {
-      const firstDayOfWeek = week[0];
-      const currentMonth = firstDayOfWeek.getMonth();
-      if (currentMonth !== lastMonth) {
-        labels.push({
-          text: firstDayOfWeek.toLocaleString("default", { month: "short" }),
-          index: weekIndex,
-        });
-        lastMonth = currentMonth;
+      // Use the first day of the week to identify "which month" this column belongs to
+      const firstDay = week[0];
+      const monthKey = `${firstDay.getFullYear()}-${firstDay.getMonth()}`;
+
+      if (monthKey !== lastMonthKey) {
+        // Count how many days of this week belong to the new month
+        const daysInNewMonth = week.filter(
+          (d) =>
+            d.getMonth() === firstDay.getMonth() &&
+            d.getFullYear() === firstDay.getFullYear()
+        ).length;
+
+        // Only label if at least 4 days of the month are visible in this column
+        // This prevents tiny edge slivers from being labeled (avoids the "Jun Jul" duplicate)
+        if (daysInNewMonth >= 4) {
+          labels.push({
+            text: firstDay.toLocaleString("default", { month: "short" }),
+            index: weekIndex,
+          });
+          lastMonthKey = monthKey;
+        }
       }
     });
 
     return labels;
   }, [weeks]);
+
+  // Total grid width for the inner scrollable container
+  const gridWidth = weeks.length * COLUMN_WIDTH + 40;
 
   return (
     <div className="w-full bg-slate-950 border border-slate-800/80 rounded-xl p-5 shadow-lg relative overflow-hidden">
@@ -101,22 +125,25 @@ export default function HabitHeatmap({ entries }: HabitHeatmapProps) {
         </div>
       </div>
 
-      <div className="flex flex-col overflow-x-auto scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent pb-2">
+      <div className="flex flex-col overflow-x-auto scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent pb-2 md:justify-center md:items-center">
         {/* Month labels at the top */}
-        <div className="flex text-[9px] text-slate-500 h-4 pl-8 mb-1 select-none relative min-w-[760px]">
+        <div
+          className="flex text-[9px] text-slate-500 h-4 mb-1 select-none relative"
+          style={{ minWidth: `${gridWidth}px` }}
+        >
           {monthLabels.map((label, i) => (
             <div
               key={i}
               className="absolute"
-              style={{ left: `${32 + label.index * 13.8}px` }}
+              style={{ left: `${32 + label.index * COLUMN_WIDTH}px` }}
             >
               {label.text}
             </div>
           ))}
         </div>
 
-        {/* Heatmap Grid Row & Columns */}
-        <div className="flex min-w-[760px]">
+        {/* Heatmap Grid */}
+        <div className="flex" style={{ minWidth: `${gridWidth}px` }}>
           {/* Day of week labels */}
           <div className="grid grid-rows-7 gap-[3px] text-[8px] text-slate-600 pr-2 pt-[2px] w-6 select-none h-[95px] shrink-0 font-medium">
             <span>Sun</span>
@@ -135,6 +162,10 @@ export default function HabitHeatmap({ entries }: HabitHeatmapProps) {
                 {week.map((day) => {
                   const dateStr = formatDateStr(day);
                   const completions = getCompletionsCount(dateStr);
+                  const today = new Date();
+                  today.setHours(0, 0, 0, 0);
+                  const isFuture = day > today;
+
                   const formattedDate = day.toLocaleDateString(undefined, {
                     month: "short",
                     day: "numeric",
@@ -144,10 +175,15 @@ export default function HabitHeatmap({ entries }: HabitHeatmapProps) {
                   return (
                     <div
                       key={dateStr}
-                      title={`${completions} habit${completions === 1 ? "" : "s"} completed on ${formattedDate}`}
-                      className={`w-2.5 h-2.5 rounded-[2px] border transition-all duration-200 cursor-pointer ${getColorClass(
-                        completions
-                      )}`}
+                      title={
+                        isFuture
+                          ? `${formattedDate} (upcoming)`
+                          : `${completions} habit${completions === 1 ? "" : "s"} completed on ${formattedDate}`
+                      }
+                      className={`w-2.5 h-2.5 rounded-[2px] border transition-all duration-200 cursor-pointer ${isFuture
+                        ? "bg-slate-950 border-slate-900/50 opacity-40"
+                        : getColorClass(completions)
+                        }`}
                     />
                   );
                 })}

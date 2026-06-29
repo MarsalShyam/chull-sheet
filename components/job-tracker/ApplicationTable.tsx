@@ -27,7 +27,7 @@ export default function ApplicationTable({
       const matchesSearch =
         app.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         app.position.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
       const matchesStage = selectedStage === "All" || app.stage === selectedStage;
 
       return matchesSearch && matchesStage;

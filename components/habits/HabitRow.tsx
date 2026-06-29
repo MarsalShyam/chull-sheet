@@ -118,7 +118,7 @@ export default function HabitRow({
   return (
     <div className="flex items-center min-w-max border-b border-slate-800/40 py-2 hover:bg-slate-900/10 transition-colors">
       {/* Sticky Habit Information Column */}
-      <div className="w-64 flex items-center justify-between pr-4 sticky left-0 bg-slate-950 z-10 shrink-0">
+      <div className="w-55 md:w-64 flex items-center justify-between pr-2 md:pr:4 sticky left-0 bg-slate-950 z-10 shrink-0">
         <div className="flex items-center space-x-2 flex-1 min-w-0">
           <GripVertical className="w-4 h-4 text-slate-600 shrink-0 cursor-grab active:cursor-grabbing" />
 
@@ -147,7 +147,7 @@ export default function HabitRow({
 
         {/* Actions Menu */}
         {!isEditing && (
-          <div className="flex items-center space-x-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex items-center space-x-1.5 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               onClick={() => setIsEditing(true)}
               className="text-slate-500 hover:text-slate-300 cursor-pointer"

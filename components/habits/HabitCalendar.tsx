@@ -99,7 +99,7 @@ export default function HabitCalendar({
           {/* Table Headers */}
           <div className="flex items-center border-b border-slate-800 bg-slate-950/60 py-2.5">
             {/* Header: Habit Details (Sticky) */}
-            <div className="w-64 pl-6 pr-4 sticky left-0 bg-slate-950 z-10 shrink-0 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+            <div className="w-55 md:w-64 pl-6 pr-4 sticky left-0 bg-slate-950 z-10 shrink-0 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
               Habits Name
             </div>
 
