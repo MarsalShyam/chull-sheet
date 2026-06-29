@@ -34,13 +34,13 @@ export default function RootLayout({
       <html
         lang="en"
         className={`${inter.variable} ${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased`}
-      >  
-      <head>
-        <link rel="icon" href="/logo.png" sizes="any" />
-      </head>
+      >
+        <head>
+          <link rel="icon" href="/logo.png" sizes="any" />
+        </head>
         <body className="h-full bg-background text-foreground font-sans">
           {children}
-          <Toaster position="top-center"/>
+          <Toaster position="top-center" />
         </body>
       </html>
     </ClerkProvider>

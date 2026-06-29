@@ -4,13 +4,13 @@ import Image from "next/image";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { SignUpButton } from "@clerk/nextjs";
-import { 
-  ArrowRight, 
-  Sparkles, 
-  Check, 
-  Calendar, 
-  Briefcase, 
-  CheckSquare 
+import {
+  ArrowRight,
+  Sparkles,
+  Check,
+  Calendar,
+  Briefcase,
+  CheckSquare
 } from "lucide-react";
 
 export default async function Home() {
@@ -98,13 +98,12 @@ export default async function Home() {
                     {Array.from({ length: 28 }).map((_, i) => (
                       <span
                         key={i}
-                        className={`aspect-square rounded-[3px] border border-slate-800/80 ${
-                          i % 5 === 0 
-                            ? "bg-slate-900" 
-                            : i % 3 === 0 
-                            ? "bg-emerald-500/30 border-emerald-500/50" 
+                        className={`aspect-square rounded-[3px] border border-slate-800/80 ${i % 5 === 0
+                          ? "bg-slate-900"
+                          : i % 3 === 0
+                            ? "bg-emerald-500/30 border-emerald-500/50"
                             : "bg-emerald-500/80 border-emerald-400/80"
-                        }`}
+                          }`}
                       />
                     ))}
                   </div>

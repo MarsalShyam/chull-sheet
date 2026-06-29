@@ -142,7 +142,7 @@ const Sidebar = ({
                 onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
                 className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${active
                   ? "bg-zinc-800 text-white"
-                  : "text-zinc-400 hover:bg-zinc-900/60 hover:text-zinc-100"
+                  : "text-white hover:bg-zinc-900/60 hover:text-zinc-100"
                   }`}
               >
                 <Icon size={18} className={active ? "text-white" : "text-zinc-400"} />
@@ -155,7 +155,7 @@ const Sidebar = ({
           <div className="space-y-1">
             <button
               onClick={() => setIsTodoExpanded(!isTodoExpanded)}
-              className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:bg-zinc-900/60 hover:text-zinc-100 transition-all duration-150 cursor-pointer"
+              className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-medium text-white hover:bg-zinc-900/60 hover:text-zinc-100 transition-all duration-150 cursor-pointer"
             >
               <div className="flex items-center space-x-3">
                 <CheckSquare size={18} />
@@ -200,7 +200,7 @@ const Sidebar = ({
           <div className="space-y-1">
             <button
               onClick={() => setIsDocsExpanded(!isDocsExpanded)}
-              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-zinc-500 uppercase tracking-wider hover:text-zinc-300 transition-colors cursor-pointer"
+              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-white uppercase tracking-wider hover:text-zinc-300 transition-colors cursor-pointer"
             >
               <span>My Documents</span>
               {isDocsExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -209,7 +209,7 @@ const Sidebar = ({
             {isDocsExpanded && (
               <div className="space-y-1 mt-1 pl-1">
                 {groupedData.owner.length === 0 ? (
-                  <p className="text-xs text-zinc-500 italic px-2 py-1">No documents found</p>
+                  <p className="text-xs text-white italic px-2 py-1">No documents found</p>
                 ) : (
                   groupedData.owner.map((doc) => (
                     <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
@@ -223,7 +223,7 @@ const Sidebar = ({
           <div className="space-y-1">
             <button
               onClick={() => setIsSharedExpanded(!isSharedExpanded)}
-              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-zinc-500 uppercase tracking-wider hover:text-zinc-300 transition-colors cursor-pointer"
+              className="flex items-center justify-between w-full px-2 py-1 text-xs font-bold text-white uppercase tracking-wider hover:text-zinc-300 transition-colors cursor-pointer"
             >
               <span>Shared with me</span>
               {isSharedExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -232,7 +232,7 @@ const Sidebar = ({
             {isSharedExpanded && (
               <div className="space-y-1 mt-1 pl-1">
                 {groupedData.editor.length === 0 ? (
-                  <p className="text-xs text-zinc-500 italic px-2 py-1">No shared documents</p>
+                  <p className="text-xs text-white italic px-2 py-1">No shared documents</p>
                 ) : (
                   groupedData.editor.map((doc) => (
                     <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
