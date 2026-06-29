@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useMemo, Suspense } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
@@ -165,30 +165,20 @@ const Sidebar = ({
 
             {isTodoExpanded && (
               <div className="pl-9 pr-2 space-y-1 transition-all duration-200">
-                <Link
-                  href="/todo?type=personal"
-                  onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
-                  className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
-                    pathname === "/todo" && !pathname.includes("teamId")
-                      ? "bg-zinc-800 text-white"
-                      : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
-                  }`}
-                >
-                  <User size={14} />
-                  <span>Personal Todo</span>
-                </Link>
-                <Link
-                  href="/todo?type=team"
-                  onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
-                  className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
-                    pathname === "/todo" && pathname.includes("teamId")
-                      ? "bg-zinc-800 text-white"
-                      : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
-                  }`}
-                >
-                  <Users size={14} />
-                  <span>Team Todo</span>
-                </Link>
+                <Suspense fallback={
+                  <>
+                    <div className="flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium text-zinc-500">
+                      <User size={14} />
+                      <span>Personal Todo</span>
+                    </div>
+                    <div className="flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium text-zinc-550">
+                      <Users size={14} />
+                      <span>Team Todo</span>
+                    </div>
+                  </>
+                }>
+                  <TodoLinks pathname={pathname} setIsMobileOpen={setIsMobileOpen} />
+                </Suspense>
               </div>
             )}
           </div>
@@ -294,5 +284,48 @@ const Sidebar = ({
     </>
   );
 };
+
+function TodoLinks({
+  pathname,
+  setIsMobileOpen,
+}: {
+  pathname: string;
+  setIsMobileOpen?: (val: boolean) => void;
+}) {
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type") || "personal";
+
+  const isPersonalActive = pathname === "/todo" && type === "personal";
+  const isTeamActive = pathname === "/todo" && type === "team";
+
+  return (
+    <>
+      <Link
+        href="/todo?type=personal"
+        onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+        className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
+          isPersonalActive
+            ? "bg-zinc-800 text-white"
+            : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
+        }`}
+      >
+        <User size={14} />
+        <span>Personal Todo</span>
+      </Link>
+      <Link
+        href="/todo?type=team"
+        onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+        className={`flex items-center space-x-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
+          isTeamActive
+            ? "bg-zinc-800 text-white"
+            : "text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200"
+        }`}
+      >
+        <Users size={14} />
+        <span>Team Todo</span>
+      </Link>
+    </>
+  );
+}
 
 export default Sidebar;

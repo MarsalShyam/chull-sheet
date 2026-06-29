@@ -278,6 +278,29 @@ export function useTodos(userId: string | null | undefined, userEmail: string | 
     }
   };
 
+  const updateTeam = async (teamId: string, updates: Partial<Omit<Team, "id" | "createdAt" | "updatedAt">>) => {
+    try {
+      await todoRepository.updateTeam(teamId, updates);
+      toast.success("Team settings updated.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update team settings.");
+    }
+  };
+
+  const deleteTeam = async (teamId: string) => {
+    try {
+      await todoRepository.deleteTeam(teamId);
+      toast.success("Team deleted successfully.");
+      if (selectedTeamId === teamId) {
+        setSelectedTeamId(null);
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete team.");
+    }
+  };
+
   // --- Team Todo Actions ---
   const addTeamTodo = async (teamId: string, todoData: Omit<TeamTodo, "id" | "createdAt" | "updatedAt">, userName: string) => {
     if (!userId) return;
@@ -357,6 +380,8 @@ export function useTodos(userId: string | null | undefined, userEmail: string | 
     createTeam,
     inviteMember,
     removeMember,
+    updateTeam,
+    deleteTeam,
 
     // Team Todo Actions
     addTeamTodo,

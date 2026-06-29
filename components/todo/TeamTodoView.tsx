@@ -22,6 +22,10 @@ import {
   Calendar, 
   User, 
   X, 
+  Settings,
+  Trash2,
+  Shield,
+  ShieldAlert,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -39,6 +43,8 @@ interface TeamTodoViewProps {
   currentUserEmail: string | null | undefined;
   currentUserName: string;
   currentUserId: string;
+  updateTeam: (teamId: string, updates: Partial<Omit<Team, "id" | "createdAt" | "updatedAt">>) => Promise<void>;
+  deleteTeam: (teamId: string) => Promise<void>;
 }
 
 const BOARD_COLUMNS: TeamTodoStatus[] = ["Todo", "In Progress", "Review", "Completed"];
@@ -54,9 +60,11 @@ export default function TeamTodoView({
   onAddTeamTodo,
   onUpdateTeamTodo,
   onDeleteTeamTodo: _onDeleteTeamTodo,
-  currentUserEmail: _currentUserEmail,
+  currentUserEmail,
   currentUserName,
   currentUserId,
+  updateTeam,
+  deleteTeam,
 }: TeamTodoViewProps) {
   // Dialog Open States
   const [isNewTeamOpen, setIsNewTeamOpen] = useState(false);
@@ -84,9 +92,22 @@ export default function TeamTodoView({
   const [activities, setActivities] = useState<ActivityLog[]>([]);
   const [newCommentText, setNewCommentText] = useState("");
 
+  // Members & Settings Panel State
+  const [isMembersOpen, setIsMembersOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [teamSettingsName, setTeamSettingsName] = useState("");
+  const [teamSettingsDesc, setTeamSettingsDesc] = useState("");
+
   const activeTeam = useMemo(() => {
     return teams.find((t) => t.id === selectedTeamId) || null;
   }, [teams, selectedTeamId]);
+
+  const currentUserRole: TeamMemberRole = useMemo(() => {
+    if (!activeTeam || !currentUserEmail) return "Member";
+    if (activeTeam.ownerEmail === currentUserEmail) return "Owner";
+    if (activeTeam.admins.includes(currentUserEmail)) return "Admin";
+    return "Member";
+  }, [activeTeam, currentUserEmail]);
 
   // Group team tasks by Kanban status
   const groupedTasks = useMemo(() => {
@@ -302,13 +323,24 @@ export default function TeamTodoView({
 
         {activeTeam && (
           <div className="flex items-center space-x-2">
-            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Members: {activeTeam.members.length}</span>
             <button
-              onClick={() => setIsInviteOpen(true)}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-[10px] text-zinc-200 border border-zinc-750 font-bold cursor-pointer"
+              onClick={() => setIsMembersOpen(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-[10px] text-zinc-250 border border-zinc-750 font-bold cursor-pointer"
             >
-              <UserPlus className="w-3 h-3" /> Invite
+              <Users2 className="w-3.5 h-3.5" /> Members ({activeTeam.members.length})
             </button>
+            {(currentUserRole === "Owner" || currentUserRole === "Admin") && (
+              <button
+                onClick={() => {
+                  setTeamSettingsName(activeTeam.name);
+                  setTeamSettingsDesc(activeTeam.description || "");
+                  setIsSettingsOpen(true);
+                }}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-[10px] text-zinc-250 border border-zinc-750 font-bold cursor-pointer"
+              >
+                <Settings className="w-3.5 h-3.5" /> Settings
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -711,6 +743,252 @@ export default function TeamTodoView({
                 Send
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* 5. Members List Panel Drawer */}
+      {isMembersOpen && activeTeam && (
+        <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-end z-50">
+          <div className="bg-zinc-950 border-l border-zinc-800 w-full max-w-md h-full p-6 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250">
+            <div className="space-y-6 flex-1 overflow-y-auto pr-1">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-zinc-850 pb-3">
+                <h3 className="text-base font-bold text-zinc-150 flex items-center gap-2">
+                  <Users2 className="w-5 h-5 text-indigo-400" />
+                  Team Members
+                </h3>
+                <button
+                  onClick={() => setIsMembersOpen(false)}
+                  className="text-zinc-400 hover:text-zinc-200 p-1 cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Invite button (Admin/Owner only) */}
+              {(currentUserRole === "Owner" || currentUserRole === "Admin") && (
+                <div className="bg-indigo-600/5 border border-indigo-500/20 p-4 rounded-xl flex items-center justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-zinc-200">Invite new members</h4>
+                    <p className="text-[10px] text-zinc-400 mt-0.5">Add collaborators to this team board.</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setIsInviteOpen(true);
+                      setIsMembersOpen(false); // Close members list while opening invite modal
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" /> Invite
+                  </button>
+                </div>
+              )}
+
+              {/* Members List */}
+              <div className="space-y-3">
+                <span className="block text-[10px] uppercase font-bold text-zinc-550 tracking-wider">
+                  Current Members ({activeTeam.members.length})
+                </span>
+                
+                <div className="space-y-2">
+                  {activeTeam.members.map((email) => {
+                    const isOwner = email === activeTeam.ownerEmail;
+                    const isAdmin = activeTeam.admins.includes(email);
+                    const isSelf = email === currentUserEmail;
+
+                    let roleBadge = (
+                      <span className="px-2 py-0.5 rounded-full border border-zinc-700/50 bg-zinc-800 text-zinc-400 text-[9px] font-bold">
+                        Member
+                      </span>
+                    );
+                    if (isOwner) {
+                      roleBadge = (
+                        <span className="px-2 py-0.5 rounded-full border border-amber-500/20 bg-amber-500/10 text-amber-500 text-[9px] font-bold flex items-center gap-1">
+                          <Shield className="w-2.5 h-2.5" /> Owner
+                        </span>
+                      );
+                    } else if (isAdmin) {
+                      roleBadge = (
+                        <span className="px-2 py-0.5 rounded-full border border-purple-500/20 bg-purple-500/10 text-purple-500 text-[9px] font-bold flex items-center gap-1">
+                          <Shield className="w-2.5 h-2.5" /> Admin
+                        </span>
+                      );
+                    }
+
+                    return (
+                      <div
+                        key={email}
+                        className="flex items-center justify-between p-3 rounded-lg bg-[#0c0c0e]/60 border border-zinc-850 hover:border-zinc-800 transition-colors"
+                      >
+                        <div className="flex flex-col truncate pr-2">
+                          <span className="text-xs text-zinc-200 truncate font-semibold">
+                            {email} {isSelf && <span className="text-indigo-400">(You)</span>}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-2 shrink-0">
+                          {roleBadge}
+
+                          {/* Member management actions */}
+                          {!isOwner && !isSelf && (
+                            <>
+                              {/* Owner actions: Toggle role or Remove */}
+                              {currentUserRole === "Owner" && (
+                                <div className="flex items-center space-x-1.5">
+                                  {isAdmin ? (
+                                    <button
+                                      title="Demote to Member"
+                                      onClick={async () => {
+                                        const updatedAdmins = activeTeam.admins.filter((a) => a !== email);
+                                        await updateTeam(activeTeam.id, { admins: updatedAdmins });
+                                      }}
+                                      className="text-zinc-500 hover:text-zinc-450 p-1 text-[10px] font-bold cursor-pointer"
+                                    >
+                                      Demote
+                                    </button>
+                                  ) : (
+                                    <button
+                                      title="Promote to Admin"
+                                      onClick={async () => {
+                                        const updatedAdmins = [...activeTeam.admins, email];
+                                        await updateTeam(activeTeam.id, { admins: updatedAdmins });
+                                      }}
+                                      className="text-indigo-400 hover:text-indigo-300 p-1 text-[10px] font-bold cursor-pointer"
+                                    >
+                                      Make Admin
+                                    </button>
+                                  )}
+                                  <button
+                                    title="Remove from Team"
+                                    onClick={() => _onRemoveMember(activeTeam.id, email)}
+                                    className="text-rose-500 hover:text-rose-455 p-1 cursor-pointer"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              )}
+
+                              {/* Admin actions: Remove Member only (cannot touch other Admins or Owner) */}
+                              {currentUserRole === "Admin" && !isAdmin && (
+                                <button
+                                  title="Remove from Team"
+                                  onClick={() => _onRemoveMember(activeTeam.id, email)}
+                                  className="text-rose-500 hover:text-rose-455 p-1 cursor-pointer"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            
+            <div className="pt-4 border-t border-zinc-855 mt-4">
+              <button
+                onClick={() => setIsMembersOpen(false)}
+                className="w-full py-2.5 rounded-lg border border-zinc-800 text-xs font-semibold text-zinc-400 hover:bg-zinc-900/60 cursor-pointer"
+              >
+                Close Panel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 6. Team Settings / Edit / Delete Modal */}
+      {isSettingsOpen && activeTeam && (
+        <div className="fixed inset-0 bg-[#030303]/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-zinc-955 border border-zinc-850 rounded-xl max-w-md w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between border-b border-zinc-855 pb-3 mb-4">
+              <h3 className="text-base font-bold text-zinc-150 flex items-center gap-2">
+                <Settings className="w-5 h-5 text-zinc-400" />
+                Team Settings
+              </h3>
+              <button
+                onClick={() => setIsSettingsOpen(false)}
+                className="text-zinc-400 hover:text-zinc-200 p-1 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (teamSettingsName.trim()) {
+                  await updateTeam(activeTeam.id, {
+                    name: teamSettingsName.trim(),
+                    description: teamSettingsDesc.trim(),
+                  });
+                  setIsSettingsOpen(false);
+                }
+              }}
+              className="space-y-4"
+            >
+              <div>
+                <label className="block text-[10px] uppercase font-bold text-zinc-550 mb-1">Team Name</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Study Group, Launch Team..."
+                  value={teamSettingsName}
+                  onChange={(e) => setTeamSettingsName(e.target.value)}
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase font-bold text-zinc-550 mb-1">Description</label>
+                <textarea
+                  placeholder="What is this team working on?"
+                  value={teamSettingsDesc}
+                  onChange={(e) => setTeamSettingsDesc(e.target.value)}
+                  className="w-full bg-[#0c0c0e] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 h-20 resize-none"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2.5 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsSettingsOpen(false)}
+                  className="px-3.5 py-2 rounded-lg bg-[#0c0c0e] border border-zinc-800 text-xs font-semibold text-zinc-400 hover:bg-zinc-900/60 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white cursor-pointer"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+
+            {/* Danger Zone: Delete Team */}
+            <div className="mt-6 pt-6 border-t border-zinc-850 space-y-3">
+              <h4 className="text-xs font-bold text-rose-500 flex items-center gap-1.5">
+                <ShieldAlert className="w-4 h-4" /> Danger Zone
+              </h4>
+              <p className="text-[10px] text-zinc-400">
+                Deleting this team will remove all tasks, comments, activity logs, and memberships permanently. This action cannot be undone.
+              </p>
+              <button
+                onClick={async () => {
+                  if (confirm(`Are you absolutely sure you want to delete the team "${activeTeam.name}"? This will delete all shared tasks and records permanently.`)) {
+                    await deleteTeam(activeTeam.id);
+                    setIsSettingsOpen(false);
+                  }
+                }}
+                className="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-rose-500/20 bg-rose-500/10 text-rose-450 hover:bg-rose-500 hover:text-white transition-colors text-xs font-semibold cursor-pointer"
+              >
+                <Trash2 className="w-3.5 h-3.5" /> Delete Team
+              </button>
+            </div>
           </div>
         </div>
       )}
