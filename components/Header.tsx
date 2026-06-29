@@ -4,6 +4,7 @@ import { useUser, Show, SignInButton, UserButton } from "@clerk/nextjs";
 import Breadcrumbs from "./Breadcrumbs";
 import { Menu } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -28,9 +29,10 @@ const Header = ({ onMenuClick }: HeaderProps) => {
 
         {/* Logo and branding on Header (especially visible on mobile/when collapsed) */}
         <Link href="/dashboard" className="flex items-center space-x-2 md:hidden">
-          <div className="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center font-bold text-white text-sm shadow-sm shadow-indigo-600/20">
+          {/* <div className="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center font-bold text-white text-sm shadow-sm shadow-indigo-600/20">
             CS
-          </div>
+          </div> */}
+          <Image src="/chull-sheet-logo-favcon.png" alt="logo" width={32} height={32} />
           <span className="font-bold text-sm text-zinc-100">ChullSheet</span>
         </Link>
 

@@ -1,18 +1,20 @@
 import { Sparkles, BookOpen, Clock, Lightbulb } from "lucide-react";
 import NewDocumentButton from "@/components/NewDocumentButton";
+import Image from "next/image";
 
 export default function Dashboard() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
       {/* Visual Header */}
-      <div className="w-20 h-20 rounded-2xl bg-indigo-600/10 flex items-center justify-center mb-6 animate-pulse">
-        <Sparkles className="w-10 h-10 text-indigo-600" />
+      <div className="flex items-center justify-center mb-6 animate-pulse">
+        {/* <Sparkles className="w-10 h-10 text-indigo-600" /> */}
+        <Image src="/color-replaced.png" alt="logo" width={96} height={96} />
       </div>
 
       <h1 className="text-3xl md:text-4xl font-extrabold text-zinc-100 tracking-tight mb-3">
         Welcome to your ChullSheet Workspace
       </h1>
-      
+
       <p className="text-zinc-400 max-w-md text-base md:text-lg mb-8 font-medium">
         Manage your habits, track job applications, outline your personal or team todos, or start writing collaborative AI-powered docs.
       </p>

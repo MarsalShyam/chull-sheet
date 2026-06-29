@@ -112,9 +112,10 @@ const Sidebar = ({
       {/* Brand / Logo */}
       <div className="flex items-center justify-between p-4 border-b border-zinc-800/40 h-16 bg-[#030303]">
         <Link href="/dashboard" className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-md shadow-indigo-500/20">
+          {/* <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-md shadow-indigo-500/20">
             CS
-          </div>
+          </div> */}
+          <Image src="/chull-sheet-logo-favcon.png" alt="logo" width={32} height={32} />
           <span className="font-bold text-lg tracking-wider text-zinc-100">ChullSheet</span>
         </Link>
         {setIsMobileOpen && (
