@@ -4,7 +4,7 @@ import {
 
 import { getFirestore } from "firebase-admin/firestore";
 
-// import serviceKey from "@/service_key.json";
+
 
 
 // if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
