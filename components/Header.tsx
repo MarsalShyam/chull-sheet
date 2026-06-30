@@ -32,7 +32,7 @@ const Header = ({ onMenuClick }: HeaderProps) => {
           {/* <div className="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center font-bold text-white text-sm shadow-sm shadow-indigo-600/20">
             CS
           </div> */}
-          <Image src="/chull-sheet-logo-favcon.png" alt="logo" width={32} height={32} />
+          <Image src="/logob3.png" alt="logo" width={32} height={32} />
           <span className="font-bold text-sm text-zinc-100">ChullSheet</span>
         </Link>
 

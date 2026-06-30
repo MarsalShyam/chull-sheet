@@ -24,7 +24,7 @@ export default function PublicLayout({
             <Link href="/" className="flex items-center space-x-2.5 hover:opacity-90 transition-opacity">
               <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
                 <Image
-                  src="/logo.png"
+                  src="/logob3.png"
                   alt="ChullSheet Logo"
                   width={32}
                   height={32}
@@ -202,7 +202,7 @@ export default function PublicLayout({
             <div className="flex items-center justify-between pb-6 border-b border-zinc-800/60 mb-6">
               <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center space-x-2">
                 <div className="w-8 h-8 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
-                  <Image src="/logo.png" alt="Logo" width={20} height={20} />
+                  <Image src="/logob3.png" alt="Logo" width={20} height={20} />
                 </div>
                 <span className="font-bold text-base text-zinc-100">ChullSheet</span>
               </Link>
@@ -333,7 +333,7 @@ export default function PublicLayout({
             <Link href="/" className="flex items-center space-x-2">
               <div className="relative w-6 h-6 rounded bg-indigo-600/20 flex items-center justify-center border border-indigo-500/30">
                 <Image
-                  src="/logo.png"
+                  src="/logob3.png"
                   alt="ChullSheet"
                   width={24}
                   height={24}

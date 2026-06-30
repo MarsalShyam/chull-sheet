@@ -75,7 +75,7 @@ export default async function Home() {
               <div className="flex justify-between items-center border-b border-slate-900 pb-4 mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
-                    <Image src="/logo.png" alt="Logo" width={18} height={18} />
+                    <Image src="/logob1.png" alt="Logo" width={18} height={18} />
                   </div>
                   <span className="font-bold text-sm text-slate-300">ChullSheet Workspace</span>
                 </div>

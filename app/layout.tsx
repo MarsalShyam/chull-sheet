@@ -36,7 +36,7 @@ export default function RootLayout({
         className={`${inter.variable} ${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased`}
       >
         <head>
-          <link rel="icon" href="/logo.png" sizes="any" />
+          <link rel="icon" href="/logow3.png" type="image/png" sizes="any" />
         </head>
         <body className="h-full bg-background text-foreground font-sans">
           {children}

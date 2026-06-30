@@ -115,7 +115,7 @@ const Sidebar = ({
           {/* <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-md shadow-indigo-500/20">
             CS
           </div> */}
-          <Image src="/chull-sheet-logo-favcon.png" alt="logo" width={32} height={32} />
+          <Image src="/logob3.png" alt="logo" width={32} height={32} />
           <span className="font-bold text-lg tracking-wider text-zinc-100">ChullSheet</span>
         </Link>
         {setIsMobileOpen && (
