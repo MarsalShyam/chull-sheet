@@ -36,7 +36,7 @@ function BlockNote({ doc, provider, darkMode }: EditorProps) {
     });
 
     return (
-        <div className="relative max-w-6xl mx-auto">
+        <div className="relative w-full max-w-full px-0 md:max-w-6xl md:mx-auto">
             <BlockNoteView
                 className="min-h-screen"
                 editor={editor}
@@ -77,8 +77,8 @@ const Editor = () => {
         }`
 
     return (
-        <div className='max-w-6xl mx-auto'>
-            <div className="flex items-center gap-2 justify-end mb-10">
+        <div className="w-full max-w-full px-0 sm:px-4 md:max-w-6xl md:mx-auto">
+            <div className="flex items-center gap-2 justify-end mb-10 px-4 md:px-0">
                 {/* TranslateDocument Ai */}
                 <TranslateDocument doc={doc} />
                 {/* ChatToDocument Ai */}

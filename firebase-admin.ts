@@ -12,9 +12,26 @@ import { getFirestore } from "firebase-admin/firestore";
 // } else {
 //   serviceKey = require("./service_key.json");
 // }
+
+// const serviceKey = require("@/service_key.json")
 const serviceKey = JSON.parse(
     process.env.FIREBASE_SERVICE_ACCOUNT_KEY!
 );
+
+// let serviceKey: any = {};
+// if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+//     try {
+//         serviceKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+//     } catch (e) {
+//         console.warn("Warning: Could not parse FIREBASE_SERVICE_ACCOUNT_KEY environment variable.");
+//     }
+// } else {
+//     try {
+//         serviceKey = require("./service_key.json");
+//     } catch (e) {
+//         // Fallback for build environment where service key might not be required
+//     }
+// }
 
 let app: App;
 

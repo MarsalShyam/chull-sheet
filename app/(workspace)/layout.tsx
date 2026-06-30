@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { useUser } from "@clerk/nextjs";
+import LogoLoader from "@/components/ui/LogoLoader";
 
 export default function WorkspaceLayout({
   children,
@@ -17,11 +18,8 @@ export default function WorkspaceLayout({
   // If clerk auth is loading, show a loading screen
   if (!isLoaded) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-950">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
-          <p className="text-slate-400 text-sm font-medium">Loading ChullSheet...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-screen bg-[#030303]">
+        <LogoLoader />
       </div>
     );
   }

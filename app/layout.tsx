@@ -3,6 +3,7 @@ import { Inter, Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
+import OfflineDetector from "@/components/OfflineDetector";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,6 +23,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ChullSheet",
   description: "AI-powered workspace for developers and students",
+  icons: {
+    icon: "/logow3.png",
+  },
 };
 
 export default function RootLayout({
@@ -41,6 +45,7 @@ export default function RootLayout({
         <body className="h-full bg-background text-foreground font-sans">
           {children}
           <Toaster position="top-center" />
+          <OfflineDetector />
         </body>
       </html>
     </ClerkProvider>
