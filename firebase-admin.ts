@@ -13,10 +13,10 @@ import { getFirestore } from "firebase-admin/firestore";
 //   serviceKey = require("./service_key.json");
 // }
 
-const serviceKey = require("@/service_key.json");
-// const serviceKey = JSON.parse(
-//     process.env.FIREBASE_SERVICE_ACCOUNT_KEY!
-// );
+// const serviceKey = require("@/service_key.json");
+const serviceKey = JSON.parse(
+    process.env.FIREBASE_SERVICE_ACCOUNT_KEY!
+);
 
 // let serviceKey: any = {};
 // if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
