@@ -587,9 +587,9 @@ export default function PublicLayout({
       </main>
 
       {/* SaaS Footer */}
-      <footer className="border-t border-zinc-900 bg-[#070708] py-12 text-sm text-zinc-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="flex flex-col space-y-4">
+      <footer className={`py-12 text-sm text-zinc-500 bg-black`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="flex flex-col space-y-5">
             <Link href="/" className="flex items-center space-x-2">
               <div className="relative w-6 h-6 rounded bg-indigo-600/20 flex items-center justify-center border border-indigo-500/30">
                 <Image

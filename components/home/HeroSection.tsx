@@ -17,22 +17,19 @@ export default function HeroSection() {
     return (
         <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-15 pb-16 md:pt-25 md:pb-24 text-center">
             {/* Badge */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/25 text-indigo-300 text-xs font-semibold mb-6 animate-pulse"
-            >
-                {/* <Sparkles className="w-3.5 h-3.5" /> */}
-                <span>Turn Your Chull Into Action.</span>
-            </motion.div>
-
-            {/* Headline */}
             <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-none mb-6 text-white"
+                className="block lg:hidden text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-relax mb-6 text-white"
+            >
+                Where Notes, Habits, Jobs, and Teamwork Come Together
+            </motion.h1>
+            <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="hidden lg:block text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-none mb-6 text-white"
             >
                 Where Notes, Habits, Jobs,
                 <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-300 bg-clip-text text-white">
@@ -55,16 +52,16 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                className="flex flex-row items-center justify-center gap-3 md:gap-5"
             >
                 <SignUpButton mode="modal">
-                    <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-zinc-300 text-base font-medium text-black shadow-xl shadow-zinc-600/20 hover:shadow-zinc-500/30 active:scale-98 transition-all duration-200 cursor-pointer">
-                        Get Started for Free <ArrowRight className="w-4 h-4" />
+                    <button className="whitespace-nowrap w-auto inline-flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:px-6 md:py-3.5 rounded-xl bg-white hover:bg-zinc-300 text-sm md:text-base font-medium text-black shadow-xl shadow-zinc-600/20 hover:shadow-zinc-500/30 active:scale-98 transition-all duration-200 cursor-pointer">
+                        Get Started for Free <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
                     </button>
                 </SignUpButton>
                 <Link
                     href="/products/docs"
-                    className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-base font-semibold text-zinc-300 hover:text-white transition-all duration-200"
+                    className="whitespace-nowrap w-auto inline-flex items-center justify-center px-3 py-2.5 md:px-6 md:py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-sm md:text-base font-semibold text-zinc-300 hover:text-white transition-all duration-200"
                 >
                     Explore Features
                 </Link>
