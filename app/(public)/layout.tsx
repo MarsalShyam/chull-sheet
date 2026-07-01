@@ -1,10 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { ArrowRight, Menu, Sparkles, X, ChevronDown } from "lucide-react";
+import {
+  FileText,
+  Briefcase,
+  Target,
+  CheckSquare,
+  Calendar,
+  Shield,
+  GraduationCap,
+  User,
+  Users,
+  Building2,
+  Rocket,
+  MessageSquare,
+  PenLine,
+  Video,
+} from "lucide-react";
+
+
+
 
 export default function PublicLayout({
   children,
@@ -14,24 +33,40 @@ export default function PublicLayout({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#030303] text-zinc-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
       {/* SaaS Navbar */}
-      <header className="sticky top-0 z-50 w-full border-b border-zinc-800/40 bg-[#030303]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <header className={`sticky top-0 z-50 w-full backdrop-blur-md transition-all duration-300 ${isScrolled
+        ? "bg-black/90 border-b border-zinc-800/80"
+        : "bg-black/60 border-b border-transparent"
+        }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-8">
-            <Link href="/" className="flex items-center space-x-2.5 hover:opacity-90 transition-opacity">
-              <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
+            <Link href="/" className="flex items-center space-x-1 hover:opacity-90 transition-opacity">
+              <div className="relative w-fit h-fit overflow-hidden flex items-center justify-center">
                 <Image
-                  src="/logob3.png"
+                  src="/logow1.png"
                   alt="ChullSheet Logo"
                   width={32}
                   height={32}
-                  className="object-contain p-1"
+                  className="object-contain p-0.5"
                 />
               </div>
-              <span className="font-bold text-lg bg-gradient-to-r from-indigo-200 via-zinc-100 to-indigo-100 bg-clip-text text-transparent tracking-tight">
+              <span className="font-bold text-lg bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent tracking-tight">
                 ChullSheet
               </span>
             </Link>
@@ -44,55 +79,112 @@ export default function PublicLayout({
                   Products
                   <span className="text-[10px] opacity-60 transition-transform group-hover:rotate-180">▼</span>
                 </button>
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-[520px] rounded-2xl bg-zinc-950/95 border border-zinc-800/80 p-4 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 backdrop-blur-md grid grid-cols-2 gap-3 z-50">
-                  <Link href="/products/docs" className="flex flex-col p-2.5 rounded-xl text-left hover:bg-zinc-900/60 group/item transition-colors">
-                    <span className="font-bold text-zinc-200 text-xs flex items-center gap-1.5 group-hover/item:text-indigo-400 transition-colors">
-                      📝 Docs
-                    </span>
-                    <span className="text-[10px] text-zinc-500 mt-1 leading-normal">
-                      Simple and powerful documents
-                    </span>
-                  </Link>
-                  <Link href="/products/job-application-tracker" className="flex flex-col p-2.5 rounded-xl text-left hover:bg-zinc-900/60 group/item transition-colors">
-                    <span className="font-bold text-zinc-200 text-xs flex items-center gap-1.5 group-hover/item:text-indigo-400 transition-colors">
-                      💼 Job Application Tracker
-                    </span>
-                    <span className="text-[10px] text-zinc-500 mt-1 leading-normal">
-                      Track your career journey
-                    </span>
-                  </Link>
-                  <Link href="/products/habit-tracker" className="flex flex-col p-2.5 rounded-xl text-left hover:bg-zinc-900/60 group/item transition-colors">
-                    <span className="font-bold text-zinc-200 text-xs flex items-center gap-1.5 group-hover/item:text-indigo-400 transition-colors">
-                      📅 Habit Tracker
-                    </span>
-                    <span className="text-[10px] text-zinc-500 mt-1 leading-normal">
-                      Build better routines
-                    </span>
-                  </Link>
-                  <Link href="/products/todo-list" className="flex flex-col p-2.5 rounded-xl text-left hover:bg-zinc-900/60 group/item transition-colors">
-                    <span className="font-bold text-zinc-200 text-xs flex items-center gap-1.5 group-hover/item:text-indigo-400 transition-colors">
-                      ✓ Todo List
-                    </span>
-                    <span className="text-[10px] text-zinc-500 mt-1 leading-normal">
-                      Your tasks, our priority
-                    </span>
-                  </Link>
-                  <Link href="/products/calendar" className="flex flex-col p-2.5 rounded-xl text-left hover:bg-zinc-900/60 group/item transition-colors">
-                    <span className="font-bold text-zinc-200 text-xs flex items-center gap-1.5 group-hover/item:text-indigo-400 transition-colors">
-                      ⏰ ChullSheet Calendar
-                    </span>
-                    <span className="text-[10px] text-zinc-500 mt-1 leading-normal">
-                      It's time
-                    </span>
-                  </Link>
-                  <Link href="/products/security" className="flex flex-col p-2.5 rounded-xl text-left hover:bg-zinc-900/60 group/item transition-colors">
-                    <span className="font-bold text-zinc-200 text-xs flex items-center gap-1.5 group-hover/item:text-indigo-400 transition-colors">
-                      🔒 Security
-                    </span>
-                    <span className="text-[10px] text-zinc-500 mt-1 leading-normal">
-                      Safe and scalable
-                    </span>
-                  </Link>
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-[640px] rounded-2xl bg-[#0a0a0a] border border-zinc-800/80 p-5 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 backdrop-blur-md z-50">
+                  <div className="grid grid-cols-2 gap-x-6">
+                    {/* Column 1 */}
+                    <div>
+                      <p className="text-xs text-zinc-500 font-normal px-3 pb-3">Productivity Tools</p>
+                      <div className="flex flex-col gap-0.5">
+                        <Link href="/products/docs" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                          <span className="text-xl leading-none mt-0.5">
+                            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                              <FileText className="w-5 h-5" strokeWidth={2} />
+                            </div>
+                          </span>
+                          <div className="flex flex-col">
+                            <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                              Docs
+                            </span>
+                            <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                              Simple and powerful documents
+                            </span>
+                          </div>
+                        </Link>
+                        <Link href="/products/job-application-tracker" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                          <span className="text-xl leading-none mt-0.5">
+                            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                              <Briefcase className="w-5 h-5" strokeWidth={2} />
+                            </div>
+                          </span>
+                          <div className="flex flex-col">
+                            <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                              Job Application Tracker
+                            </span>
+                            <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                              Track your career journey
+                            </span>
+                          </div>
+                        </Link>
+                        <Link href="/products/habit-tracker" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                          <span className="text-xl leading-none mt-0.5">
+                            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                              <Target className="w-5 h-5" strokeWidth={2} />
+                            </div>
+                          </span>
+                          <div className="flex flex-col">
+                            <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                              Habit Tracker
+                            </span>
+                            <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                              Build better routines
+                            </span>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Column 2 */}
+                    <div>
+                      <p className="text-xs text-zinc-500 font-normal px-3 pb-3">Organization</p>
+                      <div className="flex flex-col gap-0.5">
+                        <Link href="/products/todo-list" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                          <span className="text-xl leading-none mt-0.5">
+                            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                              <CheckSquare className="w-5 h-5" strokeWidth={2} />
+                            </div>
+                          </span>
+                          <div className="flex flex-col">
+                            <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-text-zinc-200 transition-colors">
+                              Todo List
+                            </span>
+                            <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                              Your tasks, our priority
+                            </span>
+                          </div>
+                        </Link>
+                        <Link href="/products/calendar" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                          <span className="text-xl leading-none mt-0.5">
+                            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                              <Calendar className="w-5 h-5" strokeWidth={2} />
+                            </div>
+                          </span>
+                          <div className="flex flex-col">
+                            <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                              ChullSheet Calendar
+                            </span>
+                            <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                              It's time
+                            </span>
+                          </div>
+                        </Link>
+                        <Link href="/products/security" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                          <span className="text-xl leading-none mt-0.5">
+                            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                              <Shield className="w-5 h-5" strokeWidth={2} />
+                            </div>
+                          </span>
+                          <div className="flex flex-col">
+                            <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                              Security
+                            </span>
+                            <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                              Safe and scalable
+                            </span>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -102,18 +194,67 @@ export default function PublicLayout({
                   Solutions
                   <span className="text-[10px] opacity-60 transition-transform group-hover:rotate-180">▼</span>
                 </button>
-                <div className="absolute top-full left-0 mt-0 w-48 rounded-xl bg-zinc-950/95 border border-zinc-800/80 p-2 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 backdrop-blur-md z-50">
-                  <Link href="/solutions/education" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    🎓 Education
+                <div className="absolute top-full left-0 mt-0 w-[320px] rounded-2xl bg-[#0a0a0a] border border-zinc-800/80 p-3 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 backdrop-blur-md z-50">
+                  <Link href="/solutions/education" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <GraduationCap className="w-5 h-5" strokeWidth={2} />
+                      </div>
+
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        Education
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        Tools for students and teachers
+                      </span>
+                    </div>
                   </Link>
-                  <Link href="/solutions/personal" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    👤 Personal
+                  <Link href="/solutions/personal" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <User className="w-5 h-5" strokeWidth={2} />
+                      </div>
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        Personal
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        Organize your personal life
+                      </span>
+                    </div>
                   </Link>
-                  <Link href="/solutions/collaboration" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    👥 Collaboration
+                  <Link href="/solutions/collaboration" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Users className="w-5 h-5" strokeWidth={2} />
+                      </div>
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        Collaboration
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        Work together seamlessly
+                      </span>
+                    </div>
                   </Link>
-                  <Link href="/solutions/professional" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    💼 Professional
+                  <Link href="/solutions/professional" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Building2 className="w-5 h-5" strokeWidth={2} />
+                      </div>
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        Professional
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        Built for professionals
+                      </span>
+                    </div>
                   </Link>
                 </div>
               </div>
@@ -124,18 +265,67 @@ export default function PublicLayout({
                   Resources
                   <span className="text-[10px] opacity-60 transition-transform group-hover:rotate-180">▼</span>
                 </button>
-                <div className="absolute top-full left-0 mt-0 w-48 rounded-xl bg-zinc-950/95 border border-zinc-800/80 p-2 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 backdrop-blur-md z-50">
-                  <Link href="/resources/whats-new" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    🚀 What's New
+                <div className="absolute top-full left-0 mt-0 w-[320px] rounded-2xl bg-[#0a0a0a] border border-zinc-800/80 p-3 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 backdrop-blur-md z-50">
+                  <Link href="/resources/whats-new" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg  border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Rocket className="w-5 h-5" strokeWidth={2} />
+                      </div>
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        What's New
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        Latest updates and features
+                      </span>
+                    </div>
                   </Link>
-                  <Link href="/resources/customer-stories" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    💬 Customer Stories
+                  <Link href="/resources/customer-stories" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg  border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <MessageSquare className="w-5 h-5" strokeWidth={2} />
+                      </div>
+
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        Customer Stories
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        See how others use ChullSheet
+                      </span>
+                    </div>
                   </Link>
-                  <Link href="/resources/blog" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    ✍️ Blog
+                  <Link href="/resources/blog" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg  border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <PenLine className="w-5 h-5" strokeWidth={2} />
+                      </div>
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        Blog
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        Insights, tips and tutorials
+                      </span>
+                    </div>
                   </Link>
-                  <Link href="/resources/webinars" className="block px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-900/60 text-xs transition-colors">
-                    🎥 Webinars
+                  <Link href="/resources/webinars" className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                    <span className="text-xl leading-none mt-0.5">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg  border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Video className="w-5 h-5" strokeWidth={2} />
+                      </div>
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[15px] font-semibold text-zinc-100 leading-tight group-hover/item:text-zinc-200 transition-colors">
+                        Webinars
+                      </span>
+                      <span className="text-xs text-zinc-500 mt-1 leading-snug">
+                        Live sessions and recordings
+                      </span>
+                    </div>
                   </Link>
                 </div>
               </div>
@@ -150,12 +340,12 @@ export default function PublicLayout({
           <div className="flex items-center space-x-4">
             <Show when="signed-out">
               <SignInButton mode="modal">
-                <button className="text-sm font-medium text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer">
+                <button className="inline-flex items-center justify-center px-3.5 py-2 font-medium rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white text-base font-semibold  transition-all duration-200 cursor-pointer">
                   Sign In
                 </button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <button className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-sm font-semibold text-white shadow-md shadow-indigo-600/10 hover:shadow-indigo-500/20 active:scale-95 transition-all cursor-pointer">
+                <button className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-300 text-base font-medium text-black shadow-md zinc-600/10 hover:shadow-zinc-500/20 active:scale-95 transition-all duration-200 cursor-pointer">
                   Get Started <ArrowRight className="w-4 h-4" />
                 </button>
               </SignUpButton>
@@ -197,12 +387,12 @@ export default function PublicLayout({
           />
 
           {/* Drawer Panel */}
-          <div className="relative flex flex-col w-[280px] h-full bg-[#09090b]/95 border-l border-zinc-800/80 p-6 shadow-2xl overflow-y-auto ml-auto transition-transform duration-300 ease-out animate-in slide-in-from-right duration-250 backdrop-blur-md">
+          <div className="relative flex flex-col w-[300px] h-full bg-[#09090b]/95 border-l border-zinc-800/80 p-6 shadow-2xl overflow-y-auto ml-auto transition-transform duration-300 ease-out animate-in slide-in-from-right duration-250 backdrop-blur-md">
             {/* Drawer Header */}
             <div className="flex items-center justify-between pb-6 border-b border-zinc-800/60 mb-6">
-              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
-                  <Image src="/logob3.png" alt="Logo" width={20} height={20} />
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center space-x-1">
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <Image src="/logow1.png" alt="Logo" width={20} height={20} />
                 </div>
                 <span className="font-bold text-base text-zinc-100">ChullSheet</span>
               </Link>
@@ -220,19 +410,49 @@ export default function PublicLayout({
               <div>
                 <button
                   onClick={() => setExpandedSection(expandedSection === "products" ? null : "products")}
-                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-zinc-200 hover:text-zinc-100 border-b border-zinc-900"
+                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-zinc-200 hover:text-white border-b border-zinc-900"
                 >
                   <span>Products</span>
                   <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-200 ${expandedSection === "products" ? "rotate-180" : ""}`} />
                 </button>
                 {expandedSection === "products" && (
-                  <div className="pl-4 py-2 space-y-3 mt-1 border-l border-zinc-800/40">
-                    <Link href="/products/docs" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">📝 Docs</Link>
-                    <Link href="/products/job-application-tracker" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">💼 Job Application Tracker</Link>
-                    <Link href="/products/habit-tracker" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">📅 Habit Tracker</Link>
-                    <Link href="/products/todo-list" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">✓ Todo List</Link>
-                    <Link href="/products/calendar" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">⏰ ChullSheet Calendar</Link>
-                    <Link href="/products/security" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">🔒 Security</Link>
+                  <div className="pl-2 py-3 space-y-1 mt-1">
+                    <Link href="/products/docs" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <FileText className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Docs</span>
+                    </Link>
+                    <Link href="/products/job-application-tracker" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Briefcase className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Job Application Tracker</span>
+                    </Link>
+                    <Link href="/products/habit-tracker" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Target className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Habit Tracker</span>
+                    </Link>
+                    <Link href="/products/todo-list" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <CheckSquare className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Todo List</span>
+                    </Link>
+                    <Link href="/products/calendar" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Calendar className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">ChullSheet Calendar</span>
+                    </Link>
+                    <Link href="/products/security" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Shield className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Security</span>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -241,17 +461,37 @@ export default function PublicLayout({
               <div>
                 <button
                   onClick={() => setExpandedSection(expandedSection === "solutions" ? null : "solutions")}
-                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-zinc-200 hover:text-zinc-100 border-b border-zinc-900"
+                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-zinc-200 hover:text-white border-b border-zinc-900"
                 >
                   <span>Solutions</span>
                   <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-200 ${expandedSection === "solutions" ? "rotate-180" : ""}`} />
                 </button>
                 {expandedSection === "solutions" && (
-                  <div className="pl-4 py-2 space-y-3 mt-1 border-l border-zinc-800/40">
-                    <Link href="/solutions/education" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">🎓 Education</Link>
-                    <Link href="/solutions/personal" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">👤 Personal</Link>
-                    <Link href="/solutions/collaboration" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">👥 Collaboration</Link>
-                    <Link href="/solutions/professional" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">💼 Professional</Link>
+                  <div className="pl-2 py-3 space-y-1 mt-1">
+                    <Link href="/solutions/education" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <GraduationCap className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Education</span>
+                    </Link>
+                    <Link href="/solutions/personal" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <User className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Personal</span>
+                    </Link>
+                    <Link href="/solutions/collaboration" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Users className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Collaboration</span>
+                    </Link>
+                    <Link href="/solutions/professional" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Building2 className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Professional</span>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -260,17 +500,37 @@ export default function PublicLayout({
               <div>
                 <button
                   onClick={() => setExpandedSection(expandedSection === "resources" ? null : "resources")}
-                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-zinc-200 hover:text-zinc-100 border-b border-zinc-900"
+                  className="flex items-center justify-between w-full py-2 text-sm font-semibold text-zinc-200 hover:text-white border-b border-zinc-900"
                 >
                   <span>Resources</span>
                   <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-200 ${expandedSection === "resources" ? "rotate-180" : ""}`} />
                 </button>
                 {expandedSection === "resources" && (
-                  <div className="pl-4 py-2 space-y-3 mt-1 border-l border-zinc-800/40">
-                    <Link href="/resources/whats-new" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">🚀 What's New</Link>
-                    <Link href="/resources/customer-stories" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">💬 Customer Stories</Link>
-                    <Link href="/resources/blog" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">✍️ Blog</Link>
-                    <Link href="/resources/webinars" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs text-zinc-400 hover:text-zinc-200">🎥 Webinars</Link>
+                  <div className="pl-2 py-3 space-y-1 mt-1">
+                    <Link href="/resources/whats-new" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Rocket className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">What's New</span>
+                    </Link>
+                    <Link href="/resources/customer-stories" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <MessageSquare className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Customer Stories</span>
+                    </Link>
+                    <Link href="/resources/blog" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <PenLine className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Blog</span>
+                    </Link>
+                    <Link href="/resources/webinars" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-900/70 transition-colors group/item">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 group-hover/item:bg-zinc-800 group-hover/item:text-white group-hover/item:border-zinc-700 transition-colors shrink-0">
+                        <Video className="w-3.5 h-3.5" strokeWidth={2} />
+                      </div>
+                      <span className="text-xs font-medium text-zinc-300 group-hover/item:text-white transition-colors">Webinars</span>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -280,7 +540,7 @@ export default function PublicLayout({
                 <Link
                   href="/developers"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block py-2 text-sm font-semibold text-zinc-200 hover:text-zinc-150 border-b border-zinc-900"
+                  className="block py-2 text-sm font-semibold text-zinc-200 hover:text-white border-b border-zinc-900"
                 >
                   Developers
                 </Link>
@@ -293,7 +553,7 @@ export default function PublicLayout({
                 <SignInButton mode="modal">
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full py-2 rounded-lg border border-zinc-800 bg-zinc-900/60 text-zinc-200 hover:bg-zinc-800 text-xs font-semibold transition-colors cursor-pointer"
+                    className="w-full py-2 rounded-lg border border-zinc-800 bg-zinc-900/60 text-zinc-200 hover:bg-zinc-800 hover:text-white text-base font-medium transition-colors cursor-pointer"
                   >
                     Sign In
                   </button>
@@ -301,7 +561,7 @@ export default function PublicLayout({
                 <SignUpButton mode="modal">
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white transition-colors cursor-pointer"
+                    className="w-full py-2 rounded-lg bg-white hover:bg-zinc-200 text-base font-medium text-black transition-colors cursor-pointer"
                   >
                     Get Started
                   </button>
@@ -313,7 +573,7 @@ export default function PublicLayout({
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center justify-center gap-1.5 w-full py-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-xs font-semibold text-zinc-200 hover:text-white transition-colors"
                 >
-                  Workspace <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+                  Workspace <Sparkles className="w-3.5 h-3.5 text-zinc-400 animate-pulse" />
                 </Link>
               </Show>
             </div>
