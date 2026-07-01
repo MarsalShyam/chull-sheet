@@ -68,7 +68,7 @@ export default function PersonalSolutionPage() {
 
         {/* CTA Banner */}
         <div className="rounded-2xl border-2 bg-zinc-950 p-8 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-indigo-500/5 blur-3xl pointer-events-none" />
+          {/* <div className="absolute inset-0 bg-indigo-500/5 blur-3xl pointer-events-none" /> */}
           <h3 className="text-xl font-bold mb-2">Unleash your productivity.</h3>
           <p className="text-xs text-slate-400 mb-6 max-w-md mx-auto">Create your own private dashboard and keep your thoughts organized.</p>
           <SignUpButton mode="modal">
