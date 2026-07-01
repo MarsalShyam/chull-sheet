@@ -7,6 +7,7 @@ import FeaturesSection from "@/components/home/FeaturesSection";
 import FreeBanner from "@/components/home/FreeBanner";
 import FeatureShowcaseSection from "@/components/home/FeatureShowcaseSection";
 import CTASection from "@/components/home/CTASection";
+import Image from "next/image";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -41,25 +42,70 @@ export default async function Home() {
       <FeatureShowcaseSection
         title="Create Docs & Collaborate with Your Team"
         description="Real‑time collaborative documents where multiple team members can edit simultaneously. Add comments, assign tasks, and watch changes live."
+        imageSlot={
+          <Image
+            src="/docColab1.webp"
+            alt="Create Docs & Collaborate with Your Team"
+            width={1000}
+            height={700}
+            className="w-full h-auto rounded-2xl border border-zinc-800 object-cover"
+          />
+        }
       />
       <FeatureShowcaseSection
         title="Track Your Job Applications Here"
         description="A dedicated Kanban board to follow every application from ‘Saved’ to ‘Offer’. Attach emails, set reminders, and log recruiter conversations."
+        imageSlot={
+          <Image
+            src="/job-apk-track1.webp"
+            alt="Track Your Job Applications Here"
+            width={1000}
+            height={700}
+            className="w-full h-auto rounded-2xl border border-zinc-800 object-cover"
+          />
+        }
         reverse
       />
       <FeatureShowcaseSection
         title="Make a Habit That Sticks"
         description="Build powerful routines with a visual habit tracker. See your yearly heatmap, daily streaks, and never break a chain again."
+        imageSlot={
+          <Image
+            src="/habit-track1.webp"
+            alt="Make a Habit That Sticks"
+            width={1000}
+            height={700}
+            className="w-full h-auto rounded-2xl border border-zinc-800 object-cover"
+          />
+        }
       />
       <FeatureShowcaseSection
         title="Your Personal Todo, Supercharged"
         description="Organize everything from grocery lists to side‑project milestones. Set priorities, due dates, and get AI‑generated subtasks."
+        imageSlot={
+          <Image
+            src="/personal-todo.webp"
+            alt="Your Personal Todo, Supercharged"
+            width={1000}
+            height={700}
+            className="w-full h-auto rounded-xl border border-zinc-800 object-cover"
+          />
+        }
         reverse
       />
-      <FeatureShowcaseSection
+      {/* <FeatureShowcaseSection
         title="My Team Todo — Align Everyone"
         description="Create shared boards for your startup or study group. Assign members, track progress, and celebrate completed goals together."
-      />
+        imageSlot={
+          <Image
+            src="/logow1.png"
+            alt="My Team Todo — Align Everyone"
+            width={1000}
+            height={700}
+            className="w-full h-auto rounded-2xl border border-zinc-800 object-cover"
+          />
+        }
+      /> */}
 
       <CTASection />
 
