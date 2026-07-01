@@ -23,7 +23,7 @@ export default function CTASection() {
                     ChullSheet — completely free.
                 </p>
                 <SignUpButton mode="modal">
-                    <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-lg font-semibold text-white shadow-xl shadow-indigo-600/20 hover:shadow-indigo-500/30 active:scale-98 transition-all duration-200 cursor-pointer">
+                    <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white hover:bg-zinc-300 text-base font-medium text-black shadow-xl shadow-zinc-600/20 hover:shadow-zinc-500/30 active:scale-98 transition-all duration-200 cursor-pointer">
                         Start Building Free <ArrowRight className="w-5 h-5" />
                     </button>
                 </SignUpButton>
