@@ -15,8 +15,8 @@ export default function FreeBanner() {
                 className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-xl p-8 sm:p-12"
             >
                 {/* Animated background glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-transparent to-violet-600/10 opacity-50 pointer-events-none" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-indigo-500/20 blur-[100px] rounded-full animate-pulse pointer-events-none" />
+                {/* <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-transparent to-violet-600/10 opacity-50 pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-zinc-300 blur-[100px] rounded-full animate-pulse pointer-events-none" /> */}
 
                 <div className="relative z-10 flex flex-col items-center text-center">
                     <motion.div

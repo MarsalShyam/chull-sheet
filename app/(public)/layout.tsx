@@ -50,8 +50,8 @@ export default function PublicLayout({
     <div className="min-h-screen bg-[#030303] text-zinc-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
       {/* SaaS Navbar */}
       <header className={`sticky top-0 z-50 w-full backdrop-blur-md transition-all duration-300 ${isScrolled
-        ? "bg-black/90 border-b border-zinc-800/80"
-        : "bg-black/60 border-b border-transparent"
+        ? "bg-black border-b border-zinc-800/80"
+        : "bg-black border-b border-transparent"
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
           {/* Logo */}
@@ -340,12 +340,12 @@ export default function PublicLayout({
           <div className="flex items-center space-x-4">
             <Show when="signed-out">
               <SignInButton mode="modal">
-                <button className="inline-flex items-center justify-center px-3.5 py-2 font-medium rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white text-base font-semibold  transition-all duration-200 cursor-pointer">
+                <button className=" items-center hidden md:inline-flex justify-center px-3.5 py-2 font-medium rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white text-base font-semibold  transition-all duration-200 cursor-pointer">
                   Sign In
                 </button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <button className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-300 text-base font-medium text-black shadow-md zinc-600/10 hover:shadow-zinc-500/20 active:scale-95 transition-all duration-200 cursor-pointer">
+                <button className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white hover:bg-zinc-300 text-base font-medium text-black shadow-md zinc-600/10 hover:shadow-zinc-500/20 active:scale-95 transition-all duration-200 cursor-pointer">
                   Get Started <ArrowRight className="w-4 h-4" />
                 </button>
               </SignUpButton>

@@ -15,16 +15,16 @@ import {
 
 export default function HeroSection() {
     return (
-        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 md:pt-32 md:pb-24 text-center">
+        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-15 pb-16 md:pt-25 md:pb-24 text-center">
             {/* Badge */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-300 text-xs font-semibold mb-6 animate-pulse"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/25 text-indigo-300 text-xs font-semibold mb-6 animate-pulse"
             >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Introducing ChullSheet 2.0</span>
+                {/* <Sparkles className="w-3.5 h-3.5" /> */}
+                <span>Turn Your Chull Into Action.</span>
             </motion.div>
 
             {/* Headline */}
@@ -34,9 +34,9 @@ export default function HeroSection() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-none mb-6 text-white"
             >
-                The ultimate productivity sheet
-                <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-300 bg-clip-text text-transparent">
-                    built for builders.
+                Where Notes, Habits, Jobs,
+                <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-300 bg-clip-text text-white">
+                    and Teamwork Come Together
                 </span>
             </motion.h1>
 
@@ -47,9 +47,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-slate-400 font-medium leading-relaxed mb-10"
             >
-                ChullSheet is a collaborative, AI-integrated workspace to organize
-                notes, track habits, manage job applications, and coordinate team todos.
-                Completely real-time.
+                A real-time workspace to organize notes, track habits, manage job applications, and collaborate on team tasks—all in one place.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -60,7 +58,7 @@ export default function HeroSection() {
                 className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
                 <SignUpButton mode="modal">
-                    <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-base font-semibold text-white shadow-xl shadow-indigo-600/20 hover:shadow-indigo-500/30 active:scale-98 transition-all duration-200 cursor-pointer">
+                    <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-zinc-300 text-base font-medium text-black shadow-xl shadow-zinc-600/20 hover:shadow-zinc-500/30 active:scale-98 transition-all duration-200 cursor-pointer">
                         Get Started for Free <ArrowRight className="w-4 h-4" />
                     </button>
                 </SignUpButton>
@@ -91,17 +89,16 @@ export default function HeroSection() {
                     {/* Dashboard Mockup Content */}
                     <div className="w-full h-full p-8 md:p-12 flex flex-col justify-between text-left select-none">
                         <div className="flex justify-between items-center border-b border-zinc-900 pb-4 mb-4">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
-                                    <Image src="/logob1.png" alt="Logo" width={18} height={18} />
+                            <div className="flex items-center gap-1">
+                                <div className="w-8 h-8 flex items-center justify-center">
+                                    <Image src="/logow1.png" alt="Logo" width={22} height={22} />
                                 </div>
                                 <span className="font-bold text-sm text-zinc-300">
                                     ChullSheet Workspace
                                 </span>
                             </div>
                             <div className="flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded px-2.5 py-1 text-[10px] text-zinc-400">
-                                <Sparkles className="w-3 h-3 text-indigo-400" /> AI Autopilot
-                                Enabled
+                                🟢 Live Updates Enabled
                             </div>
                         </div>
 
@@ -113,10 +110,10 @@ export default function HeroSection() {
                                         <Calendar className="w-3.5 h-3.5" /> HABITS
                                     </div>
                                     <h3 className="font-bold text-sm text-zinc-200 mb-1">
-                                        LeetCode Daily
+                                        Exercise Daily for 30 mins
                                     </h3>
                                     <p className="text-[10px] text-zinc-500 leading-tight">
-                                        Streak: 18 Days. Complete 1 algorithm daily.
+                                        Streak: 18 Days. Complete your exercise daily.
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-7 gap-1 mt-3">
@@ -124,10 +121,10 @@ export default function HeroSection() {
                                         <span
                                             key={i}
                                             className={`aspect-square rounded-[3px] border border-zinc-800/80 ${i % 5 === 0
-                                                    ? "bg-zinc-900"
-                                                    : i % 3 === 0
-                                                        ? "bg-emerald-500/30 border-emerald-500/50"
-                                                        : "bg-emerald-500/80 border-emerald-400/80"
+                                                ? "bg-zinc-900"
+                                                : i % 3 === 0
+                                                    ? "bg-emerald-500/30 border-emerald-500/50"
+                                                    : "bg-emerald-500/80 border-emerald-400/80"
                                                 }`}
                                         />
                                     ))}
@@ -141,19 +138,31 @@ export default function HeroSection() {
                                         <Briefcase className="w-3.5 h-3.5" /> CAREER
                                     </div>
                                     <h3 className="font-bold text-sm text-zinc-200 mb-1">
-                                        Google Application
+                                        Microsoft Job Application
                                     </h3>
                                     <p className="text-[10px] text-zinc-500 leading-tight">
-                                        Stage: Interview Call. Scheduled for July 12th.
+                                        Stage: Interview Call. Scheduled for 1nd July.
                                     </p>
                                 </div>
+                                <div className="flex justify-center items-center">
+                                    <Image src="/microsoft_inter.png" alt="microsoft_demo" width={150} height={200} />
+                                </div>
+
                                 <div className="space-y-1.5 mt-3">
                                     <div className="flex justify-between items-center bg-black border border-zinc-900 rounded p-1.5 text-[9px]">
                                         <span className="text-zinc-300 font-medium">
-                                            System Design Prep
+                                            DSA Prep
                                         </span>
                                         <span className="text-indigo-400 font-bold uppercase tracking-wider">
                                             High
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between items-center bg-black border border-zinc-900 rounded p-1.5 text-[9px]">
+                                        <span className="text-zinc-300 font-medium">
+                                            Coding Mock Interview
+                                        </span>
+                                        <span className="text-indigo-400 font-bold uppercase tracking-wider">
+                                            To-Do
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center bg-black border border-zinc-900 rounded p-1.5 text-[9px]">

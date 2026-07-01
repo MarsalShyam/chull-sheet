@@ -21,8 +21,19 @@ export default async function Home() {
         One single ultra‑soft ambient glow – placed centrally, 
         very low opacity so it never lightens the background 
       */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full bg-indigo-600/3 blur-[200px] pointer-events-none" />
-
+      {/* <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full pointer-events-none" /> */}
+      {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[90%] rounded-full bg-indigo-600/3 blur-[200px] pointer-events-none"
+        style={{
+          // Two background layers:
+          // 1. padding-box → transparent interior
+          // 2. border-box → gradient border
+          background:
+            'linear-gradient(transparent, transparent) padding-box, linear-gradient(90deg, #242424ff, #020202ff, #2a2a2cff) border-box',
+          border: '3px solid #1414a3ff',
+          borderRadius: '9999px', // ensures perfect rounding
+          opacity: 0.25,          // adjust to your taste
+          // softens the border slightly
+        }} /> */}
       <HeroSection />
       <FeaturesSection />
       <FreeBanner />
