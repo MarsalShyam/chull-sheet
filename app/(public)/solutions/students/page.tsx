@@ -4,8 +4,8 @@ import { SignUpButton } from "@clerk/nextjs";
 
 export default function StudentsSolutionPage() {
   return (
-    <div className="bg-slate-950 text-slate-100 min-h-screen relative overflow-hidden py-16 md:py-24">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/5 blur-[120px] pointer-events-none" />
+    <div className="bg-black text-slate-100 min-h-screen relative overflow-hidden py-16 md:py-24">
+      {/* <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/5 blur-[120px] pointer-events-none" /> */}
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -41,11 +41,11 @@ export default function StudentsSolutionPage() {
         </div>
 
         {/* CTA */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/20 p-8 text-center">
+        <div className="rounded-2xl border bg-zinc-950 p-8 text-center">
           <h3 className="text-xl font-bold mb-2">Study smarter. Track better.</h3>
           <p className="text-xs text-slate-400 mb-6 max-w-md mx-auto">ChullSheet provides students with a single, highly integrated dashboard to conquer their schedules.</p>
           <SignUpButton mode="modal">
-            <button className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-sm font-semibold text-white cursor-pointer">
+            <button className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-white hover:bg-zinc-300 text-base font-medium text-black cursor-pointer">
               Get Started for Free <ArrowRight className="w-4 h-4" />
             </button>
           </SignUpButton>

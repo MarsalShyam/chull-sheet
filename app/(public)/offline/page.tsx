@@ -35,7 +35,7 @@ export default function OfflinePage() {
     setIsChecking(true);
     // Simulate checking connection
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    
+
     const online = navigator.onLine;
     setIsOnline(online);
     setIsChecking(false);
@@ -128,7 +128,7 @@ export default function OfflinePage() {
           <h2 className="text-xl md:text-2xl font-bold text-zinc-100 mb-3">
             {isOnline ? "Back Online!" : "Connection Lost"}
           </h2>
-          
+
           <p className="text-sm text-zinc-400 mb-8 leading-relaxed">
             {isOnline
               ? "Your internet connection is restored. You're ready to reconnect to the workspace."
@@ -140,12 +140,12 @@ export default function OfflinePage() {
             <button
               onClick={handleRetry}
               disabled={isChecking}
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-sm font-semibold text-white transition-all shadow-lg shadow-indigo-600/10 hover:shadow-indigo-500/20 cursor-pointer disabled:opacity-50 hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-zinc-300 text-base font-medium text-black transition-all shadow-lg shadow-zinc-600/10 hover:shadow-zinc-500/20 cursor-pointer disabled:opacity-50 hover:scale-[1.02] active:scale-[0.98]"
             >
               <RefreshCw className={`w-4 h-4 ${isChecking ? "animate-spin" : ""}`} />
               {isChecking ? "Checking..." : isOnline ? "Reconnect" : "Retry Connection"}
             </button>
-            
+
             <Link
               href="/"
               className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:text-white text-sm font-semibold text-zinc-300 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"

@@ -27,14 +27,14 @@ export default function LoadingPage() {
     <div className="relative min-h-screen w-full bg-[#030303] text-zinc-100 flex flex-col items-center justify-center overflow-hidden px-4">
       {/* Background radial gradients for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-100px,rgba(99,102,241,0.12),transparent)] pointer-events-none" />
-      
+
       <div className="relative z-10 max-w-md w-full text-center flex flex-col items-center space-y-8">
-        
+
         {/* Main Logo Loader */}
         <div className="relative w-24 h-24 flex items-center justify-center">
           {/* Glowing background halo */}
           <motion.div
-            className="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl"
+            className="absolute inset-0"
             animate={{
               scale: [1, 1.4, 1],
               opacity: [0.3, 0.7, 0.3],
